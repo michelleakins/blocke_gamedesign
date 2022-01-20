@@ -8,8 +8,10 @@ os.system('cls')
 #HELLLOOOOOOOOO okay soooooo this is my print practice!!
 
 #step 1: ???
-print("Greenhill:10, Portal: 5.33")
-print("Total students: 240, Boys:120")
+print("Greenhill:10", end=", ")
+print("Portal : 5.33")
+print("Total students: 240", end=", ")
+print("Boys : 120")
 print("031")
 print("3.561E+02")
 
