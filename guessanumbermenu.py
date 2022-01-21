@@ -6,6 +6,8 @@ correct_choice = 89
 
 count = 0
 
+x = 1-100
+
 guess = int(input("Guess a number:- "))
 
 if x == correct_choice:
@@ -16,5 +18,5 @@ if x > correct_choice:
     
 if x < correct_choice:
     print("sorry, that number is too small, guess again")
-    
+
     
