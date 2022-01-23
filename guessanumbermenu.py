@@ -16,8 +16,6 @@ os.system('cls')
 
 #guess = int(input("Please give me a number"))
 
-correct_number = random.randint(1,10)
-
 
 print("  _______________________________________________________________ ")
 print(" |                                                               |")
@@ -32,29 +30,48 @@ print("  ")
 
 def guessing(dif):
     if int(dif)==1:
-        number= random.randint(1,10)
+        number_onetoten= random.randint(1,10)
     if int(dif)==2:
-        number= random.randint(1,30)
+        number_onetothrity= random.randint(1,30)
     if int(dif)==3:
-        number= random.randint(1,50)    
+        number_onetofifty= random.randint(1,50)    
     if int(dif) > 3:
         print("hahaha that's not a level silly, restart the game😡")
         quit()
 
+correct_number_10 = random.randint(1,10)
+correct_number_30 = random.randint(1,30)
+correct_number_50 = random.randint(1,50)
 
 difficulty= input("Sooo what level do you want??")
-print("  ")
-guessing(difficulty)
+print("   ")
 
-while True:
-    guess = input("What's your guess??")
-    if int(guess) > correct_number:
-        print("Number is tooooo big, guess again")
-    if int(guess) < correct_number:
-        print("Number is tooooo small, guess again")
-    if str.isnumeric(guess) and int(guess) == correct_number:
-        print("Yayyy that is correct!!")
-        quit()
-
-
-
+while int(difficulty) == 1:
+        guess = input("What's your guess??")
+        if int(guess) > correct_number_10:
+                print("Number is tooooo big, guess again")
+        if int(guess) < correct_number_10:
+                print("Number is tooooo small, guess again")
+        if int(guess) == correct_number_10:
+                print("Yayyy that is correct!!")
+                quit()
+                
+while  int(difficulty) == 2:
+        guess = input("What's your guess??")
+        if int(guess) > correct_number_30:
+            print("Number is tooooo big, guess again")
+        if int(guess) < correct_number_30:
+            print("Number is tooooo small, guess again")
+        if str.isnumeric(guess) and int(guess) == correct_number_30:
+            print("Yayyy that is correct!!")
+            quit()
+            
+while int(difficulty) == 3:
+        guess = input("What's your guess??")
+        if int(guess) > correct_number_50:
+            print("Number is tooooo big, guess again")
+        if int(guess) < correct_number_50:
+            print("Number is tooooo small, guess again")
+        if str.isnumeric(guess) and int(guess) == correct_number_50:
+            print("Yayyy that is correct!!")
+            quit()
