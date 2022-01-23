@@ -15,7 +15,7 @@ os.system('cls')
 #print("The number is %.2f " %(userInfo/3)) #we use .2 float to get the thingy
 
 #guess = int(input("Please give me a number"))
-
+ 
 
 print("  _______________________________________________________________ ")
 print(" |                                                               |")
@@ -65,7 +65,7 @@ while  int(difficulty) == 2:
         if str.isnumeric(guess) and int(guess) == correct_number_30:
             print("Yayyy that is correct!!")
             quit()
-            
+
 while int(difficulty) == 3:
         guess = input("What's your guess??")
         if int(guess) > correct_number_50:
