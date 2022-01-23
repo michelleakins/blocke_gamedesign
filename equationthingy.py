@@ -1,6 +1,4 @@
 import os
-from turtle import clear
-from unittest import result
 os.system('cls')
 
 # michelle akins
