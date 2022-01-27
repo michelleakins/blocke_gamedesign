@@ -15,13 +15,6 @@ print("Level 3: guess a number between 1-50")
 print("  ")
 
 menu() #calling the function menu
-check = True
-while check:
-    try:
-        choice =int(("choice:"))
-        check = False
-    except ValueError:
-        print("that's not a level silly, please enter 1-3 ONLYY")
 
 if choice == 1:
     myNumber = random.radint(1,10)

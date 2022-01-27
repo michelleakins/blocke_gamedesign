@@ -28,6 +28,17 @@ guess = 0
 menu()
 
 
+check=True
+while check:
+    gameType=input("Please select a level of the game ")
+    try:
+        gameType=int(gameType)
+        if gameType >0 and gameType<4:
+            check=False
+        print("\nPlease enter a number between 1 and 3")
+    except ValueError:
+        print("Sorry, wrong input try again")
+
 def userInput(dif):
     if userInput(dif)==1:
         number_onetoten= random.randint(1,10)
@@ -37,6 +48,16 @@ def userInput(dif):
         number_onetohundred= random.randint(1,50) 
     if userInput(dif) > 3:
         print("FROM 1-3 ONLYYY")
+
+# ValueError != int
+# check = True
+# while check:
+#     try:
+#         if userInput(dif):
+#             print("FROM 1-3 ONLY!!")
+#     except:
+
+
 
 correct_number_10 = random.randint(1,10)
 correct_number_50 = random.randint(1,50)
@@ -59,10 +80,10 @@ correct_number_100 = random.randint(1,100)
 # def difficulty(int):
 #     print("what level do you want?")
 
-difficulty = input("what level do you want: [1,2, or 3] \n")
+# difficulty = input("what level do you want: [1,2, or 3] \n")
 
 maxguess = 0
-while int(difficulty) == 1:
+while int(userInput) == 1:
         guess = input("\ntake a guess: \n")
         if maxguess > 3:
             os.system('cls')
@@ -90,7 +111,7 @@ while int(difficulty) == 1:
                 quit()
 
 maxguess = 0
-while int(difficulty) == 2:
+while int(difficuly) == 2:
         guess = input("\ntake a guess: \n")
         if maxguess > 6:
             os.system('cls')
