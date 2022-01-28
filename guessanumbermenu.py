@@ -23,6 +23,7 @@ def menu():
     print(" |              lvl 1: guess a number from 1-10                   |")
     print(" |              lvl 2: guess a number from 1-50                   |")
     print(" |              lvl 3: guess a number from 1-100                  |")
+    print(" |              lvl 4: guess a number from 1-1000                  |")
     print("  _______________________________________________________________ ")
 guess = 0    
 menu()
@@ -33,136 +34,126 @@ while check:
     gameType=input("Please select a level of the game: ")
     try:
         gameType=int(gameType)
-        if gameType >0 and gameType<4:
+        if gameType >0 and gameType<5:
             check=False
         else:
-            print("FROM 1-3 ONLY!")
+            print("FROM 1-4 ONLY!")
     except ValueError:
         print("Sorry, wrong input try again")
 
-# ValueError != int
-# check = True
-# while check:
-#     try:
-#         if userInput(dif):
-#             print("FROM 1-3 ONLY!!")
-#     except:
+number = 0
+def difficulty():
+    if gameType ==1:
+        number = random.randint(1,10)
+    if gameType ==2:
+        number = random.randint(1,50)
+    if gameType ==3:
+        number = random.randint(1,100)
 
-
-def difficulty(dif):
-    if difficulty(dif):
-        correct_number_10 = random.randint(1,10)
-    if difficulty(dif):
-        correct_number_50 = random.randint(1,50)
-    if difficulty(dif):
-        correct_number_100 = random.randint(1,100)
-
-# ValueError != int
-# check = True
-# while check:
-#     try:
-#         difficulty =int(("choice:"))
-#         check = True
-#     except ValueError:
-#         print("that's not a level silly, please enter 1-3 ONLYY")
-#         check = False
-# ValueError != int
-
-# if input == ValueError:
-#     print('yogabagaba')
-
-# def difficulty(int):
-#     print("what level do you want?")
 
 # difficulty = input("what level do you want: [1,2, or 3] \n")
 
 maxguess = 0
-while int(difficulty) == 1:
+correctGuess_10 = random.randint(1,10)
+while int(gameType) == 1:
     guess = input("\ntake a guess: \n")
     if maxguess > 3:
         os.system('cls')
         menu()
+        print("the correct guess was", correctGuess_10)
         print("too many guesses, restart game!")
-        correct_number_10 = random.randint(1,10)
-        correct_number_50 = random.randint(1,50)
-        correct_number_100 = random.randint(1,100)
+        difficulty()
         quit()
-    if int(guess) > correct_number_10:
+    if int(guess) > correctGuess_10:
         print("oooof your number is too big, try a smaller number! \n☆*:.｡.｡.:*☆ \n")
         maxguess = maxguess + 1
-    if int(guess) < correct_number_10:
+    if int(guess) < correctGuess_10:
         print("oooof your number is too small, try a bigger number! \n☆*:.｡.｡.:*☆ \n")
         maxguess = maxguess + 1
-    if int(guess) == correct_number_10:
+    if int(guess) == correctGuess_10:
         answer = input("yay that is correct, wanna play again?? [yes OR no] ")
         if answer == "yes":
             os.system('cls')
             menu()
-            correct_number_10 = random.randint(1,10)
-            correct_number_50 = random.randint(1,50)
-            correct_number_100 = random.randint(1,100)
+            difficulty()
         if answer == "no":
             quit()
 
 maxguess = 0
-while int(difficulty) == 2:
+correctGuess_50 = random.randint(1,50)
+while int(gameType) == 2:
     guess = input("\ntake a guess: \n")
     if maxguess > 6:
         os.system('cls')
         menu()
+        print("the correct guess was", correctGuess_50)
         print("too many guesses, restart game")
-        correct_number_10 = random.randint(1,10)
-        correct_number_50 = random.randint(1,50)
-        correct_number_100 = random.randint(1,100)
+        difficulty()
         break
-    if int(guess) > correct_number_50:
+    if int(guess) > correctGuess_50:
         print("oooof your number is too big, try a smaller number! \n☆*:.｡.｡.:*☆ \n")
         maxguess = maxguess + 1
-    if int(guess) < correct_number_50:
-        print("oooof your number is too small, try a bigger number! \n☆*:.｡.｡.:*☆ \n")
+    if int(guess) <  correctGuess_50:
+        print("oooof your number is too small, try a 2 bigger number! \n☆*:.｡.｡.:*☆ \n")
         maxguess = maxguess + 1
-    if int(guess) == correct_number_50:
+    if int(guess) ==  correctGuess_50:
         answer = input("yay that is correct, wanna play again?? [yes OR no] ")
         if answer == "yes":
             os.system('cls')
             menu()
-            correct_number_10 = random.randint(1,10)
-            correct_number_50 = random.randint(1,50)
-            correct_number_100 = random.randint(1,100)
+            difficulty()
         if answer == "no":
             quit()
 
 maxguess = 0
-while int(difficulty) == 3:
+correctGuess_100 = random.randint(1,100)
+while int(gameType) == 3:
     guess = input("\ntake a guess: \n")
     if maxguess >= 8:
         os.system('cls')
         menu()
+        print("the correct guess was", correctGuess_100)
         print("too many guesses, restart game")
-        correct_number_10 = random.randint(1,10)
-        correct_number_50 = random.randint(1,50)
-        correct_number_100 = random.randint(1,100)
+        difficulty()
         break
-    if int(guess) > correct_number_100:
+    if int(guess) >  correctGuess_100:
         print("oooof your number is too big, try a smaller number! \n☆*:.｡.｡.:*☆ \n")
         maxguess = maxguess + 1
-    if int(guess) < correct_number_100:
+    if int(guess) < correctGuess_100:
         print("oooof your number is too small, try a bigger number! \n☆*:.｡.｡.:*☆ \n")
         maxguess = maxguess + 1
-    if int(guess) == correct_number_100:
+    if int(guess) ==  correctGuess_100:
         answer = input("yay that is correct, wanna play again?? [yes OR no] ")
         if answer == "yes":
             os.system('cls')
             menu()
-            correct_number_10 = random.randint(1,10)
-            correct_number_50 = random.randint(1,50)
-            correct_number_100 = random.randint(1,100)
+            difficulty()
         if answer == "no":
             quit()
 
+maxguess = 0
+correctGuess_1000 = random.randint(1,1000)
+while int(gameType) == 4:
+    guess = input("\ntake a guess: \n")
+    if maxguess >= 8:
+        os.system('cls')
+        menu()
+        print("the correct guess was", correctGuess_1000)
+        print("too many guesses, restart game")
+        difficulty()
+        break
+    if int(guess) >  correctGuess_1000:
+        print("oooof your number is too big, try a smaller number! \n☆*:.｡.｡.:*☆ \n")
+        maxguess = maxguess + 1
+    if int(guess) < correctGuess_1000:
+        print("oooof your number is too small, try a bigger number! \n☆*:.｡.｡.:*☆ \n")
+        maxguess = maxguess + 1
+    if int(guess) ==  correctGuess_1000:
+        answer = input("yay that is correct, wanna play again?? [yes OR no] ")
+        if answer == "yes":
+            os.system('cls')
+            menu()
+            difficulty()
+        if answer == "no":
+            quit()
 
-
-
-# while int(difficulty) != 1 or 2 or 3:
-#         guess = input("FROM 1-3 ONLY!!😡 RESTART THE GAME [enter]") 
-#         quit()
