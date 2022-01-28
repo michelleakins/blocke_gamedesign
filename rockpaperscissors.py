@@ -1,4 +1,3 @@
-from ctypes.wintypes import INT
 import numbers
 import  os, random
 os.system('cls')
