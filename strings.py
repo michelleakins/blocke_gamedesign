@@ -22,4 +22,11 @@ if 'yay' in mystatement:
     print('true')
 if 'michelle' in myname:
     print('RA')
+print('expert' not in mystatement)
+#find functio will return the index ur looking for first instance
+INDEX = myname.find("i")
+print(INDEX)
+
+#LISTS
+
 

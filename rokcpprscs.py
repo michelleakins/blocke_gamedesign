@@ -24,7 +24,9 @@ def menu2():
     print("************************************************")
     print(" ")
     if userInput == "yes":
+        os.system('cls')
         menu()
+        random.randint(1,3)
         print("\nchoose: rock, paper, or scissors? \n")
     if userInput == "no":
         quit()
