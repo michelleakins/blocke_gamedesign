@@ -1,3 +1,4 @@
+from multiprocessing import RLock
 import numbers
 import  os, random
 os.system('cls')
@@ -20,15 +21,17 @@ def menu2():
     print(" ")
     print("************************************************")
     print("|           wanna play again?🤨                |")
-    print("|               [yes or no]                    |")
+    print("|                                              |")
     print("************************************************")
     print(" ")
-    if userInput == "yes":
+    haha = input("yes or no")
+    if haha == "yes":
         os.system('cls')
         menu()
-        random.randint(1,3)
         print("\nchoose: rock, paper, or scissors? \n")
-    if userInput == "no":
+        random.randint(1,3)
+    elif haha == "no":
+        #print("no")
         quit()
 
 def menu():
