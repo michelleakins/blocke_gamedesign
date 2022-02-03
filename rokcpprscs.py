@@ -16,7 +16,6 @@ os.system('cls')
 # backup plan if they don't input rock, paper, or scissors
 # mispellig scenerio
 
-
 def menu2():
     print(" ")
     print("************************************************")
@@ -24,14 +23,11 @@ def menu2():
     print("|                                              |")
     print("************************************************")
     print(" ")
-    haha = input("yes or no")
+    haha = input("yes or no: ")
     if haha == "yes":
         os.system('cls')
         menu()
-        print("\nchoose: rock, paper, or scissors? \n")
-        random.randint(1,3)
     elif haha == "no":
-        #print("no")
         quit()
 
 def menu():
