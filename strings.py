@@ -45,22 +45,22 @@ print(mystatement1)
 for elem in myname:
     print(elem, end=",  ")
 
-guess = random.choice(myname)
-print(guess)
-words = ["radio", "clues", "apple", "suite", "robot"]
-word = random.choice(words)
-print(word)
-check =True
-while check:
-    answer = input("hey user, please give us a nice letter")
-    if len(answer)>1 or not answer.isalpha():
-        print("NOOOOO")
-    else:
-        check = False
-print("ready for playing")
+# guess = random.choice(myname)
+# print(guess)
+# words = ["radio", "clues", "apple", "suite", "robot"]
+# word = random.choice(words)
+# print(word)
+# check =True
+# while check:
+#     answer = input("hey user, please give us a nice letter")
+#     if len(answer)>1 or not answer.isalpha():
+#         print("NOOOOO")
+#     else:
+#         check = False
+# print("ready for playing")
 
-for i in range(len(word)):
-    if answer == word[i]:
-        print(answer, end=" ")
-    else:
-        print("_", end= " ")
+# for i in range(len(word)):
+#     if answer == word[i]:
+#         print(answer, end=" ")
+#     else:
+#         print("_", end= " ")

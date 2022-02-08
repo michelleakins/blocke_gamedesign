@@ -1,6 +1,4 @@
-from calendar import THURSDAY
 import os, random
-from unittest import result
 os.system('cls')
 
 
@@ -53,8 +51,8 @@ listyes = "elephant, orange, baseball, sodapop, resilliant, academic, lifestyle"
 words = ["elephant", "orange", "baseball", "sodapop", "resilliant", "academic", "lifestyle"]
 wordanswer = random.choice(words)
 
-name = input("what's  your name?")
-print("hey",name, "\nthe words are: ",listyes,"\nyou have 5 tries to guess the word!!")
+name = input("what's  your name? ")
+print("hey",name, "\nthe words are: ",listyes,"\n\nyou have 5 tries to guess the word!!")
 
 check =True
 while check:
@@ -62,12 +60,12 @@ while check:
     if len(answer)>1 or not answer.isalpha():
         print("NOOOOO, guess ONE letter!!!😡")
     else:
-        check = False
+        check = False 
 
 guesses = ''
 
 #how many tries to input a character
-trys = 7
+trys = 5
 
 while trys > 0:
     #each time a person guess a character
@@ -97,25 +95,15 @@ while trys > 0:
 		trys -= 1
 		print("nope")
         #this lets the user know how many guesses they have
-		print("You have", + trys, 'more guesses')
+		print("You have", + trys, 'more guesses\n')
         # they will lose if they ran outta guesses
 		if trys == 0:
 			print("you ran outta guess :((")
 
 print("the word is: ", wordanswer,)
 
-# asks the user if they wanna play again
-GameOn = True
-while GameOn:
-    userinput = input("\nwanna play again? [yes or no]")
-    if userinput == "yes":
-        menu()
-        os.system('cls')
-        wordanswer = random.choice(words)
-    if userinput == "no":
-        GameOn = False
-        
 # SOURCE!!! https://www.geeksforgeeks.org/python-program-for-word-guessing-game/ 
+
 
 
 
