@@ -129,6 +129,7 @@ while int(gameType) == 3:
             menu()
             difficulty()
         if answer == "no":
+            print("next time:(")
             quit()
 
 maxguess = 0
