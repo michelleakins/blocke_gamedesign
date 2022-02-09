@@ -50,11 +50,19 @@ menu()
 
 fruits = ["mandarin", "orange", "blueberry", "mango", "cranberry", "papaya", "strawberry"]
 animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake"]
-drinks = ["sodapop", "orange juice", "water", "lemonade", ]
+drinks = ["sodapop", "orange juice", "water", "lemonade"]
 
 
 userchoice = input("what category would you like?")
-randy = random.choice(userchoice)
+
+if userchoice == "fruits":
+    randy = random.choice(fruits)
+elif userchoice == "animals":
+    randy = random.choice(animals)
+elif userchoice == "drinks":
+    randy = random.choice(drinks)
+else:
+    print("FRUITS, ANIMALS, DRINKS")
 
 guess=""
 def guessFunction():
@@ -86,7 +94,7 @@ def restartgame():
 
 gameOn=True
 tries=0
-letterGuessed=""
+letterGuessed = ""
 while gameOn:
     guessFunction()
     letterGuessed += guess #letterGuessed + guess
