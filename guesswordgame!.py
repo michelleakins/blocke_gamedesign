@@ -44,25 +44,28 @@ def menu():
     print("````````````````````````````````````````````````````````````")
     print("````````````````welcome to word guessing game````````````````")
     username = input("what's  your name? ")
-    print("HOLA,",username,", WELCOME TO THE WORD GUESSING GAME!!\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------")
+    print("HOLA,",username,", WELCOME TO THE WORD GUESSING GAME!!\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
 
 menu()
 
-fruits = ["mandarin", "orange", "blueberry", "mango", "cranberry", "papaya", "strawberry"]
-animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake"]
-drinks = ["sodapop", "orange juice", "water", "lemonade"]
+fruits = ["mandarin", "orange", "blueberry", "mango", "cranberry", "papaya", "strawberry", "banana", "apple", "watermelon"]
+animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake", "deer", "toocan", "reindeer", "panda", "fox", "owl"]
+drinks = ["sodapop", "orange juice", "water", "lemonade", "wine", "slushie", "smoothie", "shake",]
 
 
 userchoice = input("what category would you like?")
 
 if userchoice == "fruits":
+    print("\ncool! the words are:\n", fruits)
     randy = random.choice(fruits)
 elif userchoice == "animals":
+    print("\nawesome! the words are:\n", animals)
     randy = random.choice(animals)
 elif userchoice == "drinks":
+    print("\nsweet! the words are:\n", drinks)
     randy = random.choice(drinks)
 else:
-    print("FRUITS, ANIMALS, DRINKS")
+    print("FRUITS, ANIMALS, DRINKS ONLYYY")
 
 guess=""
 def guessFunction():
