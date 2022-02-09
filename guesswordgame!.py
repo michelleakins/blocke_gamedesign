@@ -44,22 +44,20 @@ def menu():
     print("´´´´´´´´´´´´´´´´´´´´´´¶¶¶¶´´¶¶¶¶¶´´¶¶¶¶´´´´´´´´´´´´´´´´´´´´´")
     print("````````````````````````````````````````````````````````````")
     print("````````````````welcome to word guessing game````````````````")
-
+    username = input("what's  your name? ")
+    print("HOLA,",username,", WELCOME TO THE WORD GUESSING GAME!!\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------")
 
 menu()
 
-listyes = "\nelephant, orange, baseball, sodapop, resilliant, academic, lifestyle"
+fruits = ["mandarin", "orange", "blueberry", "mango", "cranberry", "papaya", "strawberry"]
+animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake"]
+drinks = ["sodapop", "orange juice", "water", "lemonade", ]
 
-username = input("what's  your name? ")
-print("HOLA,",username, "!\n\nTHE WORDS ARE: ",listyes,"\n\n☆*: .｡.you have 5 tries to guess the word!!.｡.:*☆")
 
-def words():
-    global randy
-    words = ["elephant", "orange", "baseball", "sodapop", "resilliant", "academic", "lifestyle"]
-    randy = random.choice(words)
+userchoice = input("what category would you like?")
+randy = random.choice(userchoice)
 
 guess=""
-words()
 def guessFunction():
     global guess
     check=True
