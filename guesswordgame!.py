@@ -53,19 +53,22 @@ animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake", "deer", "t
 drinks = ["sodapop", "orange juice", "water", "lemonade", "wine", "slushie", "smoothie", "shake",]
 
 
-userchoice = input("what category would you like?")
+def level():
+    global randy
+    userchoice = input("what category would you like?")
+    if userchoice == "fruits":
+        print("\ncool! the words are:\n", fruits)
+        randy = random.choice(fruits)
+    elif userchoice == "animals":
+        print("\nawesome! the words are:\n", animals)
+        randy = random.choice(animals)
+    elif userchoice == "drinks":
+        print("\nsweet! the words are:\n", drinks)
+        randy = random.choice(drinks)
+    else:
+        print("FRUITS, ANIMALS, DRINKS ONLYYY")
 
-if userchoice == "fruits":
-    print("\ncool! the words are:\n", fruits)
-    randy = random.choice(fruits)
-elif userchoice == "animals":
-    print("\nawesome! the words are:\n", animals)
-    randy = random.choice(animals)
-elif userchoice == "drinks":
-    print("\nsweet! the words are:\n", drinks)
-    randy = random.choice(drinks)
-else:
-    print("FRUITS, ANIMALS, DRINKS ONLYYY")
+level()
 
 guess=""
 def guessFunction():
@@ -80,18 +83,21 @@ def guessFunction():
             if len(guess) >1:
                 print("ONLY ONE LETTER!😡")
 
-score = len(randy)*2
 #this is for the end!
 def restartgame():
-    global anotherrandy
+    score = len(randy)*2 
+    global tries, letterGuessed
     print("\n|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
     print("|`````````your final score is...", score, "...wanna play again? ``````````````````````|")
     print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
     userinput = input("[yes or no]")
     if userinput == "yes":
-        os.system('cls')
-        menu()
+        print("\n")
+        level()
+        tries=0
+        letterGuessed = ""
     if userinput == "no":
+        print(score)
         print("\nokie dokie!")
         quit()
 
