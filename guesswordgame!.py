@@ -1,7 +1,6 @@
 import os, random
 os.system('cls')
 
-
 def menu():
     print("  ")
     print("´´´´´´´´´´´´´´´´´´´´´´´´¶´´´´´´´´´¶´´´´´´´´´´´´´´´´´´´´´´´´´´")
@@ -82,6 +81,7 @@ def restartgame():
         os.system('cls')
         menu()
     if userinput == "no":
+        print("\nokie dokie!")
         quit()
 
 gameOn=True
