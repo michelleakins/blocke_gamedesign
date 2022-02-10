@@ -1,5 +1,8 @@
+from calendar import c
 import os, random
 os.system('cls')
+
+# 
 
 def menu():
     print("  ")
@@ -86,11 +89,12 @@ def guessFunction():
                 print("ONLY ONE LETTER!😡")
 
 #this is for the end!
+
 def restartgame():
-    score = len(randy)*2 
     global tries, letterGuessed
+    score = len(randy)*2
     print("\n|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
-    print("|`````````your final score is...", score, "...wanna play again? ``````````````````````|")
+    print("|`````````your final score is...", score, "...wanna play again? ``````````````````````````|")
     print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
     userinput = input("[yes or no]")
     if userinput == "yes":
@@ -125,7 +129,8 @@ while gameOn:
         restartgame()
         #playgame() ask if they want to play again
     if countLetter == len(randy):
+        score = len(randy)*2 
         print("\nYAYYY YOU GUESSED IT╰(*°▽°*)╯")
         restartgame()
-
+        quit()
 
