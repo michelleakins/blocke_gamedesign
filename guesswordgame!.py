@@ -41,13 +41,13 @@ def menu():
     print("````````````````````````````````````````````````````````````")
     print("````````````````welcome to word guessing game````````````````")
     username = input("what's  your name? ")
-    print("HOLA,",username,", WELCOME TO THE WORD GUESSING GAME!!\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
+    print("HOLA,",username,", WELCOME TO THE WORD GUESSING GAME!!\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND COMPUTER PARTS----------\n")
 
 menu()
 
 fruits = ["mandarin", "orange", "blueberry", "mango", "cranberry", "papaya", "strawberry", "banana", "apple", "watermelon"]
 animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake", "deer", "toocan", "reindeer", "panda", "fox", "owl"]
-drinks = ["sodapop", "orange juice", "water", "lemonade", "wine", "slushie", "smoothie", "shake",]
+computerparts = ["keyboard", "speakers", "screen", "ports", "power button", "circuit", "battery", "monitor",]
 
 
 def level():
@@ -63,9 +63,9 @@ def level():
             print("\nawesome! the words are:\n", animals)
             randy = random.choice(animals)
             check = False
-        elif userchoice == "drinks":
-            print("\nsweet! the words are:\n", drinks)
-            randy = random.choice(drinks)
+        elif userchoice == "computer parts":
+            print("\nsweet! the words are:\n", computerparts)
+            randy = random.choice(computerparts)
             check = False
         else:
             print("FRUITS, ANIMALS, DRINKS ONLYYY")
