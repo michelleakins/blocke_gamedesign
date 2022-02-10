@@ -49,7 +49,7 @@ def menu():
 menu()
 
 fruits = ["mandarin", "orange", "blueberry", "mango", "cranberry", "papaya", "strawberry", "banana", "apple", "watermelon"]
-animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake", "deer", "toocan", "reindeer", "panda", "fox", "owl"]
+animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake", "deer", "toucan", "reindeer", "panda", "fox", "owl"]
 computerparts = ["keyboard", "speakers", "screen", "ports", "power button", "circuit", "battery", "monitor",]
 
 
@@ -88,7 +88,26 @@ def guessFunction():
             if len(guess) >1:
                 print("ONLY ONE LETTER!😡")
 
+tries=0
+
 #this is for the end!
+def playagain():
+    global check
+    check = True
+    while check:
+        userinput = input("[yes or no]")
+        if userinput == "yes":
+            ("\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
+            print("\n")
+            level()
+            tries=0
+            letterGuessed = ""
+        elif userinput == "no":
+            print(score)
+            print("\nokie dokie!")
+            quit()
+        else:
+            print("YES OR NO")
 
 def restartgame():
     global tries, letterGuessed
@@ -96,20 +115,10 @@ def restartgame():
     print("\n|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
     print("|`````````your final score is...", score, "...wanna play again? ``````````````````````````|")
     print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
-    userinput = input("[yes or no]")
-    if userinput == "yes":
-        ("\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
-        print("\n")
-        level()
-        tries=0
-        letterGuessed = ""
-    if userinput == "no":
-        print(score)
-        print("\nokie dokie!")
-        quit()
+    playagain()
+
 
 gameOn=True
-tries=0
 letterGuessed = ""
 while gameOn:
     guessFunction()
@@ -133,4 +142,3 @@ while gameOn:
         print("\nYAYYY YOU GUESSED IT╰(*°▽°*)╯")
         restartgame()
         quit()
-
