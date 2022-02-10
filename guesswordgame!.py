@@ -9,11 +9,8 @@ def menu():
     print("´´´´´´´´´´´´´´´´´´´´´¶´´¶¶´´´´´´´´´¶¶´´¶´´´´´´´´´´´´´´´´´´´´´")
     print("´´´´´´´´´´´´´´´´´´´´´¶¶´¶¶¶´´´´´´´¶¶¶´¶¶´´´´´´´´´´´´´´´´´´´´´")
     print("´´´´´´´´´´´´´¶´´´´´´¶¶´´´¶¶¶´´´´´¶¶¶´´´¶¶´´´´´´¶´´´´´´´´´´´´´")
-    print("´´´´´´´´´´´´¶¶´´´´´´¶¶´´´¶¶¶´´´´´¶¶¶´´´¶¶´´´´´´¶¶´´´´´´´´´´´´")
-    print("´´´´´´´´´´´¶¶´´´´´´¶¶´´´´¶¶¶¶´´´¶¶¶¶´´´´¶¶´´´´´´¶¶´´´´´´´´´´´")
     print("´´´´´´´´´´´¶¶´´´´´¶¶¶´´´´¶¶¶¶´´¶¶¶¶¶´´´´¶¶¶´´´´´¶¶¶´´´´´´´´´´")
     print("´´´´´´´¶´´¶¶¶´´´´¶¶¶¶´´´´¶¶¶¶´´´¶¶¶¶´´´´¶¶¶¶´´´¶¶¶¶´´¶´´´´´´´")
-    print("´´´´´´´¶¶´¶¶¶¶¶´´¶¶¶¶´´´¶¶¶¶¶´´´¶¶¶¶¶´´´¶¶¶¶´´¶¶¶¶¶´¶¶´´´´´´´")
     print("´´´´´´´¶¶´¶¶¶¶¶´´¶¶¶¶¶¶¶¶¶¶¶´´´´´¶¶¶¶¶¶¶¶¶¶¶´´¶¶¶¶¶´¶¶´´´´´´´")
     print("´´´´´´´¶¶´¶¶¶¶¶´´¶¶¶¶¶¶¶¶¶¶¶´´´´´¶¶¶¶¶¶¶¶¶¶¶´´¶¶¶¶¶´¶¶´´´´´´´")
     print("´´´´´´¶¶¶´´¶¶¶¶´´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´´´¶¶¶¶´´¶¶¶´´´´´´")
@@ -55,18 +52,23 @@ drinks = ["sodapop", "orange juice", "water", "lemonade", "wine", "slushie", "sm
 
 def level():
     global randy
-    userchoice = input("what category would you like?")
-    if userchoice == "fruits":
-        print("\ncool! the words are:\n", fruits)
-        randy = random.choice(fruits)
-    elif userchoice == "animals":
-        print("\nawesome! the words are:\n", animals)
-        randy = random.choice(animals)
-    elif userchoice == "drinks":
-        print("\nsweet! the words are:\n", drinks)
-        randy = random.choice(drinks)
-    else:
-        print("FRUITS, ANIMALS, DRINKS ONLYYY")
+    check = True
+    while check:
+        userchoice = input("what category would you like?")
+        if userchoice == "fruits":
+            print("\ncool! the words are:\n", fruits)
+            randy = random.choice(fruits)
+            check = False
+        elif userchoice == "animals":
+            print("\nawesome! the words are:\n", animals)
+            randy = random.choice(animals)
+            check = False
+        elif userchoice == "drinks":
+            print("\nsweet! the words are:\n", drinks)
+            randy = random.choice(drinks)
+            check = False
+        else:
+            print("FRUITS, ANIMALS, DRINKS ONLYYY")
 
 level()
 
@@ -92,6 +94,7 @@ def restartgame():
     print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
     userinput = input("[yes or no]")
     if userinput == "yes":
+        ("\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
         print("\n")
         level()
         tries=0
