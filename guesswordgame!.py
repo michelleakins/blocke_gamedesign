@@ -91,32 +91,29 @@ def guessFunction():
 tries=0
 
 #this is for the end!
-def playagain():
-    global check
-    check = True
-    while check:
-        userinput = input("[yes or no]")
-        if userinput == "yes":
-            ("\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
-            print("\n")
-            level()
-            tries=0
-            letterGuessed = ""
-        elif userinput == "no":
-            print(score)
-            print("\nokie dokie!")
-            quit()
-        else:
-            print("YES OR NO")
 
 def restartgame():
-    global tries, letterGuessed
+    global tries, letterGuessed, highscore
     score = len(randy)*2
+    highscore=0
+    if score> highscore:
+        highscore = score
     print("\n|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
-    print("|`````````your final score is...", score, "...wanna play again? ``````````````````````````|")
+    print("|`````````your high score is...", score, "...wanna play again? ``````````````````````````|")
     print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
-    playagain()
-
+    userinput = input("[yes or no]")
+    if userinput == "yes":
+        ("\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
+        print("\n")
+        level()
+        tries=0
+        letterGuessed = ""
+    elif userinput == "no":
+        print(score)
+        print("\nokie dokie!")
+        quit()
+    else:
+        print("YES OR NO")
 
 gameOn=True
 letterGuessed = ""
@@ -141,4 +138,4 @@ while gameOn:
         score = len(randy)*2 
         print("\nYAYYY YOU GUESSED IT╰(*°▽°*)╯")
         restartgame()
-        quit()
+        
