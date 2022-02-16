@@ -26,9 +26,28 @@ menu()
 
 cards= ['2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace']
 
+def win():
+    global userinput
+    userinput = input("\nYOU WONNN!\n☆*: .｡. try again? [yes or no] .｡.:*☆")
+    if userinput == "yes":
+        os.system('cls')
+        menu()
+        userinput()
+    if userinput == "no":
+        quit()
+
+def lost():
+    global userinput
+    userinput = input("HAHA YOU LOST!\n☆*: .｡. try again? [yes or no] .｡.:*☆")
+    if userinput == "yes":
+        os.system('cls')
+        menu()
+        userinput()
+    if userinput == "no":
+        quit()
+
 def userinput():
     global userinput, randomcarduser, randomcardcomputer
-    userinput = input("type 'card' if you would like to play a card\n")
     if userinput == "card":
         randomcarduser= random.choice(cards)
         randomcardcomputer= random.choice(cards)
@@ -39,24 +58,6 @@ def userinput():
         lost()
 
 userinput()
-
-def playagain():
-    if userinput == "yes":
-        os.system('cls')
-        menu()
-        userinput()
-    if userinput == "no":
-        quit()
-
-def win():
-    global userinput
-    userinput = input("\nYOU WONNN!\n☆*: .｡. try again? [yes or no] .｡.:*☆")
-    playagain()
-
-def lost():
-    global userinput
-    userinput = input("HAHA YOU LOST!\n☆*: .｡. try again? [yes or no] .｡.:*☆")
-    playagain()
 
 
 
