@@ -56,6 +56,7 @@ computerparts = ["keyboard", "speakers", "screen", "ports", "power button", "cir
 
 
 def leaderboard():
+
     print("[leaderboard here]")
 
 def level():
