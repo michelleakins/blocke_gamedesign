@@ -43,6 +43,7 @@ while check:
 
 number = 0
 def difficulty():
+    global number
     if gameType ==1:
         number = random.randint(1,10)
     if gameType ==2:
