@@ -93,15 +93,12 @@ def guessFunction():
 tries=0
 
 #this is for the end!
+score = len(randy)*2
 
 def restartgame():
     global tries, letterGuessed, highscore
-    score = len(randy)*2
-    highscore=0
-    if score> highscore:
-        highscore = score
     print("\n|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
-    print("|`````````your high score is...", score, "...wanna play again? ``````````````````````````|")
+    print("|`````````your high score is...", points, "...wanna play again? ``````````````````````````|")
     print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
     userinput = input("[yes or no]")
     if userinput == "yes":
@@ -138,6 +135,10 @@ while gameOn:
         #playgame() ask if they want to play again
     if countLetter == len(randy):
         score = len(randy)*2 
+        highscore=0
+        if score> highscore:
+            highscore = score
         print("\nYAYYY YOU GUESSED IT╰(*°▽°*)╯")
+        points = score + highscore
         restartgame()
         
