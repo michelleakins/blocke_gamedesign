@@ -27,6 +27,7 @@ def shufflecards():
             deck.append(card)
             #this adds the information to the "full deck" we want to make
 #you can print the deck here, if you want to see how it looks
+
 print(deck)
 #now let's see the deck!
 def printdeck():
@@ -54,6 +55,12 @@ def playersplit():
 
 halfDeck=int(len(deck)/2)
 
+def restart():
+    for l in range(52):
+        if l%2==0:
+            player1.extend(deck[l])
+        else:
+            player2.append(deck[l])
     #ask user to hit a key to release cards
 
 def playgame():
@@ -77,6 +84,7 @@ def playgame():
         print("Player one won the game "+str(plyr1)+" to "+str(plyr2))
     else:
         print("Player two won the game "+str(plyr2)+" to "+str(plyr1))
+
 
 playgame()
             
