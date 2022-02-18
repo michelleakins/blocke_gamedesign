@@ -9,12 +9,12 @@ computerparts = ["keyboard", "speakers", "screen", "ports", "power button", "cir
 
 
 size = len(fruits)
-# print(size)
-# fruits.append("rambutan")
+print(size)
+fruits.append("rambutan")
 for i in range(size-1): # 11 is not included
     print(fruits[i])
-# print(fruits[size-1])
-# print(fruits[size-2])
+print(fruits[size-1])
+print(fruits[size-2])
 
 # print(fruits.count('orange'))
 

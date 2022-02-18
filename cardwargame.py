@@ -31,56 +31,43 @@ def menu():
     print("|                                        *    \  /              ")
     print("|                                              \/               ")
 
-def score():
-    global scorec, scoreu, totalscore
-    scoreu = randomcarduser*2
-    scorec = randomcardcomputer*2
-    totalscore = 0
-    if totalscore > scorec or scoreu:
-        print(totalscore)
-    if scorec or scoreu > totalscore:
-        
-
-def score():
-    global tries, letterGuessed, highscore
-    score = len(randy)*2
-    highscore=0
-    if score> highscore:
-        highscore = score
-    print("\n|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
-    print("|`````````your high score is...", score, "...wanna play again? ``````````````````````````|")
-    print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
-    userinput = input("[yes or no]")
-    if userinput == "yes":
-        ("\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
-        print("\n")
-        level()
-        tries=0
-        letterGuessed = ""
-    elif userinput == "no":
-        print(score)
-        print("\nokie dokie!")
-        quit()
-    else:
-        print("YES OR NO")
+# def score():
+#     global scorec, scoreu, highscore, pointsc, pointsu
+#     scoreu = randomcarduser*2
+#     scorec = randomcardcomputer*2
+#     highscore =  scoreu + scoreu
+#     pointsu = highscore + scoreu
+#     pointsc = highscore + scorec
+#     if highscore > scorec or scoreu:
+#         print("your score is....", pointsu, end="!!!")
+#     if scorec or scoreu > highscore:
+#         print("your score is....", highscore, end="!!!")
 
 def win():
-    global check
-    userinput = input("\nYOU WONNN!\n☆*: .｡. the score is .｡.:*☆\n")
+    # score()
+    # if highscore > scorec or scoreu:
+    userinput = input("\nYOU WONNN!\n☆*: .｡. the score is [highscore] .｡.:*☆\n\n----------wanna try again??[yes or no]---------\n")
+    # else:
+    userinput = input("\nYOU WONNN!\n☆*: .｡. the score is [score], .｡.:*☆\n\n----------wanna try again??[yes or no]---------\n")
     if userinput == "yes":
         os.system('cls')
         menu()
-        check = True
     if userinput == "no":
         quit()
 
 def lost():
-    global check
-    userinput = input("\nHAHA YOU LOST!\n☆*: .｡. try again? [yes or no] .｡.:*☆\n")
+    userinput = input("\nHAHA YOU LOST!\n☆*: .｡. the score is [highscore] .｡.:*☆\n\n----------wanna try again??[yes or no]---------")
     if userinput == "yes":
         os.system('cls')
         menu()
-        check = True
+    if userinput == "no":
+        quit()
+
+def tie():
+    userinput = input("\nYOU TIED!\n☆*: .｡. the score is [highscore] .｡.:*☆\n\n----------wanna try again??[yes or no]---------")
+    if userinput == "yes":
+        os.system('cls')
+        menu()
     if userinput == "no":
         quit()
 
@@ -88,6 +75,7 @@ def userinput():
     global check, userinput
     check = True
     while check:
+        randomizedcards()
         userinput = input("|     typa 'card' if you want to pull out a card:\n\n")
         if userinput == "card":
             randomizedcards()
@@ -96,7 +84,8 @@ def userinput():
             win()
         if randomcarduser < randomcardcomputer:
             lost()
-
+        if randomcarduser == randomcardcomputer:
+            tie()
 
 menu()
 userinput()
