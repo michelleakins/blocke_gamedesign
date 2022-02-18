@@ -46,7 +46,7 @@ def menu():
 
 
     username = input("what's  your name? ")
-    print("HOLA,",username,", WELCOME TO THE WORD GUESSING GAME!!\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND COMPUTER PARTS----------\n\t     (type 1 if you want to see the leaderboard)\n")
+    print("HOLA,",username,", WELCOME TO THE WORD GUESSING GAME!!\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND COMPUTER PARTS----------\n")
 
 menu()
 
@@ -54,10 +54,6 @@ fruits = ["mandarin", "orange", "blueberry", "mango", "cranberry", "papaya", "st
 animals = ["elephant", "kangaroo", "lion", "crab", "lizard", "snake", "deer", "toucan", "reindeer", "panda", "fox", "owl"]
 computerparts = ["keyboard", "speakers", "screen", "ports", "power button", "circuit", "battery", "monitor",]
 
-
-def leaderboard():
-
-    print("[leaderboard here]")
 
 def level():
     global randy
@@ -76,8 +72,6 @@ def level():
             print("\nsweet! the words are:\n", computerparts)
             randy = random.choice(computerparts)
             check = False
-        elif userchoice == "1":
-            leaderboard()
         else:
             print("FRUITS, ANIMALS, DRINKS ONLYYY")
 
