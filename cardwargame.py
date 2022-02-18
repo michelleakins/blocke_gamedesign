@@ -32,10 +32,38 @@ def menu():
     print("|                                              \/               ")
 
 def score():
-    global scorc, scoreu, totalscore
-    # scoreu = number of index (randomcarduser)*2
-    # scorec = number of index(randomcardcomputer) *2
-    #
+    global scorec, scoreu, totalscore
+    scoreu = randomcarduser*2
+    scorec = randomcardcomputer*2
+    totalscore = 0
+    if totalscore > scorec or scoreu:
+        print(totalscore)
+    if scorec or scoreu > totalscore:
+        
+
+def score():
+    global tries, letterGuessed, highscore
+    score = len(randy)*2
+    highscore=0
+    if score> highscore:
+        highscore = score
+    print("\n|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
+    print("|`````````your high score is...", score, "...wanna play again? ``````````````````````````|")
+    print("|```````´´´´´´´´´´´´´´´´´´´´´´´´```````````````````````````````´´´´´´´´´´´´´´´´´´´´´´´´´|")
+    userinput = input("[yes or no]")
+    if userinput == "yes":
+        ("\n\n--------THE CATEGORIES ARE: FRUITS, ANIMALS, AND DRINKS----------\n")
+        print("\n")
+        level()
+        tries=0
+        letterGuessed = ""
+    elif userinput == "no":
+        print(score)
+        print("\nokie dokie!")
+        quit()
+    else:
+        print("YES OR NO")
+
 def win():
     global check
     userinput = input("\nYOU WONNN!\n☆*: .｡. the score is .｡.:*☆\n")
