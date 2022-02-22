@@ -5,17 +5,17 @@ deck=[]
 #next, let's start building lists to build the deck
 #NumberCards is the list to hold numbers plus face cards
 numberCards = []
-suits = ['h',"d", "c", "♠️"]
+suits = ['♣',"♦", "♥", "♣"]
 royals = ["J", "Q", "K", "A"]
-    
-
+tempplayer1 = []
+tempplayer2 = []
+halfDeck=0
 #using loops and append to add our content to numberCards :
 def shufflecards():
     global row, col
     for i in range(2,11):
         numberCards.append(str(i))
         #this adds numbers 2-10 and converts them to string data
-
     for j in range(4):
         numberCards.append(royals[j])
         #this will add the card faces to the base list
@@ -28,7 +28,7 @@ def shufflecards():
             #this adds the information to the "full deck" we want to make
 #you can print the deck here, if you want to see how it looks
 
-print(deck)
+# print(deck)
 #now let's see the deck!
 def printdeck():
     global row, col
@@ -38,55 +38,75 @@ def printdeck():
             print(deck[counter], end=" ")
             counter +=1
         print()
+
+def realShuffle():
+    global player1
+    global player2
 #now let's shuffle our deck!
 #Shuffle the deck cards
-random.shuffle(deck)
-player1=[]
-player2=[]
-# you could print it again here just to see how it shuffle
-#loop to devide the cards to each player
+    random.shuffle(deck)
+    player1=[]
+    player2=[]
+    # you could print it again here just to see how it shuffle
+    #loop to devide the cards to each player
 
-def playersplit():
     for l in range(52):
         if l%2==0:
             player1.append(deck[l])
         else:
             player2.append(deck[l])
 
-halfDeck=int(len(deck)/2)
+def splitdeck():
+    global halfDeck
+    halfDeck=int(len(deck)/2)
 
-def restart():
-    for l in range(52):
-        if l%2==0:
-            player1.extend(deck[l])
-        else:
-            player2.append(deck[l])
-    #ask user to hit a key to release cards
+        #ask user to hit a key to release cards
 
-def playgame():
+gameon = True
+while gameon:
     global click
     shufflecards()
-    playersplit()
-    halfDeck=int(len(deck)/2)
-    plyr1=0
-    plyr2=0
-    for i in range (0,halfDeck):
-        click=input("Press a any key to get cards")
+    realShuffle()
+    splitdeck()
+    for i in range (0,int(halfDeck/2)):
+        click=input("╰(*°▽°*)╯Press [enter] to draw a card ")
         print("Player 1     Player 2")
         print("     "+player1[i]+"      "+player2[i])
         if player1[i]>player2[i]:
-            plyr1 +=1
+            tempplayer1.append(player1[i])
+            tempplayer1.append(player2[i])
         elif player1[i]<player2[i]:
-            plyr2 +=1
-        print("Player I: "+str(plyr1)+"     Player II: "+ str(plyr2))
-
-    if plyr1>plyr2:
-        print("Player one won the game "+str(plyr1)+" to "+str(plyr2))
+            tempplayer2.append(player1[i])
+            tempplayer2.append(player2[i])
+    
+    if (len(tempplayer2)) == 0:
+        print("player 1 won the game!")
+    elif (len(tempplayer1)) == 0:
+        print("player 2 won the game!")
     else:
-        print("Player two won the game "+str(plyr2)+" to "+str(plyr1))
+        print("in", halfDeck)
+        print("length =", len(player1))
+        for j in range (0, int(halfDeck/2)):
+            player1.pop(j)
+            player2.pop(j)
+        player1.extend(tempplayer1)
+        player2.extend(tempplayer2)
+        if len(player1)<len(player2):
+            halfDeck = len(player1)
+        else: 
+            halfDeck = len(player2)
+
+    # print(player1)
+    # print("Player I score: "+str(plyr1)+",     Player II score: "+ str(plyr2), "\n")
+
+    # if plyr1>plyr2:
+    #     print("\nPlayer I won the game "+str(plyr1)+" to "+str(plyr2))
+    #     restart()
+    # else:
+    #     print("\nPlayer II won the game "+str(plyr2)+" to "+str(plyr1))
+    #     restart()
 
 
-playgame()
             
         
    
