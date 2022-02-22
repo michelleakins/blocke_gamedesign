@@ -69,7 +69,7 @@ while gameon:
     realShuffle()
     splitdeck()
     for i in range (0,int(halfDeck/2)):
-        click=input("╰(*°▽°*)╯Press [enter] to draw a card ")
+        click=input("\n╰(*°▽°*)╯Press [enter] to draw a card ")
         print("Player 1     Player 2")
         print("     "+player1[i]+"      "+player2[i])
         if player1[i]>player2[i]:
@@ -78,14 +78,17 @@ while gameon:
         elif player1[i]<player2[i]:
             tempplayer2.append(player1[i])
             tempplayer2.append(player2[i])
+        elif player1[i] == player2[i]:
+            tempplayer1.append(player1[i])
+            tempplayer2.append(player2[i])
     
     if (len(tempplayer2)) == 0:
         print("player 1 won the game!")
     elif (len(tempplayer1)) == 0:
         print("player 2 won the game!")
-    else:
-        print("in", halfDeck)
-        print("length =", len(player1))
+    # else:
+    #     print("in", halfDeck)
+    #     print("length =", len(player1))
         for j in range (0, int(halfDeck/2)):
             player1.pop(j)
             player2.pop(j)
@@ -95,6 +98,7 @@ while gameon:
             halfDeck = len(player1)
         else: 
             halfDeck = len(player2)
+
 
     # print(player1)
     # print("Player I score: "+str(plyr1)+",     Player II score: "+ str(plyr2), "\n")
