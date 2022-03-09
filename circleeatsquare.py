@@ -61,7 +61,7 @@ while check:
            xc += move
     if keys[pygame.K_UP] and yc >=radius:
            yc -= move
-    if keys[pygame.K_UP] and yc < HEIGHT - hbox:
+    if keys[pygame.K_DOWN] and yc < HEIGHT - hbox:
            yc += move
 
     pygame.draw.rect(screen, sq_color, square)
