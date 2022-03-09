@@ -1,3 +1,4 @@
+from operator import truediv
 import os, random
 os.system('cls')
 
@@ -13,21 +14,22 @@ justnowamomentago = "(gangcai t) 刚才"
 
 vocabwords = [weather, comparedwith, tosnow, tomakeanappointment, park, iceskate, will, cold, justnowamomentago]
 
-def study():
-    global randomvocab, userguess, correctanswer
-    print("18 line reached")
-    randomvocab = random.choice(vocabwords)
-    userguess = input("okay, what is the correct vocab word to:", randomvocab, "?")
-    correctanswer = randomvocab
-    if userguess == correctanswer:
-        print("yay that is correct, next question!")
+def playgame():
+    gameon = True
+    while gameon:
+        global randomvocab, userguess, correctanswer
+        userguess = input("okay, what is the correct vocab word to:", random, "?")
+        correctanswer = random.choice(vocabwords)
+        if userguess == correctanswer:
+            print("yay that is correct, next question!")
+        else:
+            print("sorry that's wrong, guess again")
 
 def ready():
     userinputstudy = input("ready to study?? [yes or no]")
     if userinputstudy == "yes":
-        print("it recognizes yes")
-        study()
+        playgame()
     if userinputstudy == "no":
         print("OH MY GOD, JUST STUDY!!!")
 
-ready()             
+ready()
