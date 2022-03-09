@@ -7,6 +7,7 @@
 #circle will get larger and new rectangle should appear somewhere on the screen
 
 import os, random, time, pygame
+os.system('cls')
 #initialize pygame
 pygame.init()
 
@@ -38,7 +39,6 @@ sq_color = colors.get('navy')
 cr_color = colors.get('white')
 
 while check:
-    circle = pygame.draw.circle(screen, cr_color, (xc, yc), radius)
     # pygame.draw.circle(screen, cr_color, (xc, yc), radius)
     screen.fill(background)
     for case in pygame.event.get():
@@ -54,14 +54,15 @@ while check:
         square.y -= move
     if keys[pygame.K_s] and square.y < HEIGHT - hbox:
         square.y += move
-    if keys[pygame.K_a] and circle.x >= move:
-        circle.x -= move #subtract 5 from the x value
-    if keys[pygame.K_d] and circle.x < WIDTH - wbox:
-        circle.x += move 
-    if keys[pygame.K_w] and circle.y >= move:
-        circle.y -= move
-    if keys[pygame.K_s] and circle.y < HEIGHT - hbox:
-        circle.y += move
+    #finished circle
+    if keys[pygame.K_LEFT] and xc >=radius:
+           xc -= move
+    if keys[pygame.K_RIGHT] and xc < WIDTH - wbox:
+           xc += move
+    if keys[pygame.K_UP] and yc >=radius:
+           yc -= move
+    if keys[pygame.K_UP] and yc < HEIGHT - hbox:
+           yc += move
 
     pygame.draw.rect(screen, sq_color, square)
     pygame.draw.circle(screen, cr_color, (xc, yc), radius)
