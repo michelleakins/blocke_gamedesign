@@ -84,21 +84,24 @@ while gameon:
     
     if (len(tempplayer2)) == 0:
         print("player 1 won the game!")
+        gameon = False
     elif (len(tempplayer1)) == 0:
         print("player 2 won the game!")
+        gameon = False
+
     # else:
     #     print("in", halfDeck)
     #     print("length =", len(player1))
-        for j in range (0, int(halfDeck/2)):
-            player1.pop(j)
-            player2.pop(j)
+        for m in range (0, int(halfDeck/2)):
+            player1.pop(m)
+            player2.pop(m)
         player1.extend(tempplayer1)
         player2.extend(tempplayer2)
         if len(player1)<len(player2):
             halfDeck = len(player1)
+            
         else: 
             halfDeck = len(player2)
-
 
     # print(player1)
     # print("Player I score: "+str(plyr1)+",     Player II score: "+ str(plyr2), "\n")
@@ -109,8 +112,3 @@ while gameon:
     # else:
     #     print("\nPlayer II won the game "+str(plyr2)+" to "+str(plyr1))
     #     restart()
-
-
-            
-        
-   
