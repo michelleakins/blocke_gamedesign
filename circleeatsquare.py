@@ -37,9 +37,12 @@ pygame.display.set_caption('cirlce eats square')
 #define colors
 colors= {'light blue':[104,100,253],'baby blue':[104,159,203],'white':[255, 255, 255], 'orange':[255, 85, 0], 'purple': [48, 25, 52], 'navy': [5,31,64], 'pink':[200, 3, 75]}
 
+randColor = random.choice(list(colors))
+
 background = colors.get('baby blue')
-sq_color = colors.get('white')
+sq_color = colors.get(randColor)
 cr_color = colors.get('light blue')
+
 
 fontsize = 12
 coordx = 25
