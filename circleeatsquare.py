@@ -6,8 +6,6 @@
 #objective of the game: the rectangle to run away from the circle. if they collide the circle eats the square
 #circle will get larger and new rectangle should appear somewhere on the screen
 
-#  K_SPACE FOR JUMP
-
 
 import os, random, time, pygame
 os.system('cls')
@@ -17,7 +15,7 @@ pygame.init()
 #declare constants, variables, init, dictionaries
 #suare size
 WIDTH = 700
-HEIGHT = 500
+HEIGHT = 700
 check = True #for the while loop
 move = 5 #5 pixels
 #square variables
@@ -39,75 +37,103 @@ colors= {'light blue':[104,100,253],'baby blue':[104,159,203],'white':[255, 255,
 
 randColor = random.choice(list(colors))
 
+TITLE_FNT = pygame.font.SysFont('hellvetica', 28)
+MENU_FNT = pygame.font.SysFont('helvetica', 40)
 
-def instructions():
-    global INS_FNT, instructions
-    INS_FNT = pygame.font.SysFont('helvetica', 25)
-    instructions = INS_FNT.render("so basically...", 1, (149, 206, 255))
-    screen.blit(instructions,(120,50))
-    instructions = INS_FNT.render('the object of this two player game is for the', 1, (149, 206, 255))
-    screen.blit(instructions,(120,100))
-    instructions = INS_FNT.render('circle to eat the sqaure until it reaches', 1, (149, 206, 255))
-    screen.blit(instructions,(120,120))
-    instructions = INS_FNT.render('a large enough radius!!', 1, (149, 206, 255))
-    screen.blit(instructions,(120,140))
-    instructions = INS_FNT.render('CONTROLS FOR SQUARE:', 1, (149, 206, 255))
-    screen.blit(instructions,(120,160))
-    instructions = INS_FNT.render('W - up', 1, (149, 206, 255))
-    screen.blit(instructions,(120,180))
-    instructions = INS_FNT.render('S - down', 1, (149, 206, 255))
-    screen.blit(instructions,(120,200))
-    instructions = INS_FNT.render('A - left', 1, (149, 206, 255))
-    screen.blit(instructions,(120,220))
-    instructions = INS_FNT.render('D - right', 1, (149, 206, 255))
-    screen.blit(instructions,(120,240))
-    instructions = INS_FNT.render('CONTROLS FOR CIRCLE:', 1, (149, 206, 255))
-    screen.blit(instructions,(120,260))
-    instructions = INS_FNT.render('up arrow (^) - up', 1, (149, 206, 255))
-    screen.blit(instructions,(120,280))
-    instructions = INS_FNT.render('down arrow - down', 1, (149, 206, 255))
-    screen.blit(instructions,(120,300))
-    instructions = INS_FNT.render('left arrow(<) - left', 1, (149, 206, 255))
-    screen.blit(instructions,(120,320))
-    instructions = INS_FNT.render('right arrow(>) - right', 1, (149, 206, 255))
-    screen.blit(instructions,(120,340))
-    instructions = INS_FNT.render('circle.... try to to get square!!', 1, (149, 206, 255))
-    screen.blit(instructions,(120,360))
-    pygame.display.update()
-    pygame.time.delay(10000)
+sq_color = colors.get(randColor)
 
-def mainmenu():
-    global MENU_FNT, TITLE_FNT, menu, keys
-    TITLE_FNT= pygame.font.SysFont('hellvetica', 28)
-    MENU_FNT = pygame.font.SysFont('helvetica', 40)
+fontsize = 12
+coordx = 25
+coordy = 26
 
-    keys = pygame.key.get_pressed()
-
-    text = TITLE_FNT.render('$*:...welcome to circle eats square game!!!...:*$', 1, (220, 240, 240))
-    screen.fill((0,0,0))
-    screen.blit(text,(120,50))
-    menu = MENU_FNT.render("-instructions[space bar]", 1, (149,206,255))
-    screen.blit(menu, (100,100))
-    if keys[pygame.K_SPACE]:
-                instructions()
-    menu = MENU_FNT.render("-settings", 1, (149,206,255))
-    screen.blit(menu, (100,150))
-    menu = MENU_FNT.render("-level select", 1, (149,206,255))
-    screen.blit(menu, (100,190))
-    menu = MENU_FNT.render("-score board", 1, (149,206,255))
-    screen.blit(menu, (100,230))
-    menu = MENU_FNT.render("-exit game", 1, (149,206,255))
-    screen.blit(menu, (100,270))
-    for case in pygame.event.get():
-            if case.type == pygame.QUIT:
-                quit()
-    pygame.display.update()
-    pygame.time.delay(10)
-
-mainmenu()
+MAX = 10
+jumpcount = 10
+JUMP = False
 
 background = colors.get('baby blue')
 cr_color = colors.get('light blue')
+
+def instructions():
+    global INS_FNT, instructions, keys
+    check = True
+    while check:
+        INS_FNT = pygame.font.SysFont('helvetica', 25)
+        instructions = INS_FNT.render("so basically...", 1, (149, 206, 255))
+        screen.blit(instructions,(120,120))
+        instructions = INS_FNT.render("this is a two player game in which", 1, (149, 206, 255))
+        screen.blit(instructions,(120,160))
+        instructions = INS_FNT.render("one person is the circle and the other person is the square.", 1, (149, 206, 255))
+        screen.blit(instructions,(120,180))
+        instructions = INS_FNT.render('and the circle is trying to eat the sqaure by tagging it', 1, (149, 206, 255))
+        screen.blit(instructions,(120,200))
+        instructions = INS_FNT.render(' ', 1, (149, 206, 255))
+        screen.blit(instructions,(120,220))
+        instructions = INS_FNT.render('CONTROLS FOR SQUARE:', 1, (227, 111, 255))
+        screen.blit(instructions,(120,250))
+        instructions = INS_FNT.render('W - up', 1, (149, 206, 255))
+        screen.blit(instructions,(120,270))
+        instructions = INS_FNT.render('S - down', 1, (149, 206, 255))
+        screen.blit(instructions,(120,290))
+        instructions = INS_FNT.render('A - left', 1, (149, 206, 255))
+        screen.blit(instructions,(120,310))
+        instructions = INS_FNT.render('D - right', 1, (149, 206, 255))
+        screen.blit(instructions,(120,330))
+        instructions = INS_FNT.render('CONTROLS FOR CIRCLE:', 1, (227, 111, 255))
+        screen.blit(instructions,(120,370))
+        instructions = INS_FNT.render('up arrow (^) - up', 1, (149, 206, 255))
+        screen.blit(instructions,(120,390))
+        instructions = INS_FNT.render('down arrow - down', 1, (149, 206, 255))
+        screen.blit(instructions,(120,410))
+        instructions = INS_FNT.render('left arrow(<) - left', 1, (149, 206, 255))
+        screen.blit(instructions,(120,430))
+        instructions = INS_FNT.render('right arrow(>) - right', 1, (149, 206, 255))
+        screen.blit(instructions,(120,450))
+        instructions = INS_FNT.render('circle.... try to to get square!!', 1, (227, 111, 255))
+        screen.blit(instructions,(120,540))
+        instructions = INS_FNT.render('back [< left arrow]', 1, (255, 255, 255))
+        screen.blit(instructions,(50,600))
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+                mainmenu()
+        for case in pygame.event.get():
+                    if case.type == pygame.QUIT:
+                        quit()
+        pygame.display.update()
+        pygame.time.delay(10)
+
+
+def mainmenu():
+    global menu, keys, check
+    check = True
+    while check:
+        for case in pygame.event.get():
+            if case.type == pygame.QUIT:
+                check = False
+                quit()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            screen.fill((0,0,0))
+            instructions()            
+            check = False
+        text = TITLE_FNT.render('$*:...welcome to circle eats square game!!!...:*$', 1, (220, 240, 240))
+        screen.fill((0,0,0))
+        screen.blit(text,(120,50))
+        menu = MENU_FNT.render("-instructions[space bar]", 1, (149,206,255))
+        screen.blit(menu, (100,100))
+        
+        menu = MENU_FNT.render("-settings", 1, (149,206,255))
+        screen.blit(menu, (100,150))
+        menu = MENU_FNT.render("-level select", 1, (149,206,255))
+        screen.blit(menu, (100,190))
+        menu = MENU_FNT.render("-score board", 1, (149,206,255))
+        screen.blit(menu, (100,230))
+        menu = MENU_FNT.render("-exit game", 1, (149,206,255))
+        screen.blit(menu, (100,270))
+        pygame.display.update()
+        pygame.time.delay(10)
+
+mainmenu()
+
 def changecolor():
     global randColor
     colorcheck = True
@@ -118,30 +144,6 @@ def changecolor():
         else:
             colorcheck = False
     
-
-sq_color = colors.get(randColor)
-
-fontsize = 12
-coordx = 25
-coordy = 26
-# def writeText(screen, coordx, coordy, fontsize):
-#   	#set the font to write with
-#     font = pygame.font.Font('freesansbold.ttf', fontsize) 
-#     #(0, 0, 0) is black, to make black text
-#     text = font.render(screen, True, (0, 0, 0))
-#     #get the rect of the text
-#     textRect = text.get_rect()
-#     #set the position of the text
-#     textRect.center = (coordx, coordy)
-#     #add text to window
-#     screen.blit(text, textRect)
-#     #update window
-#     pygame.display.update()
-
-MAX = 10
-jumpcount = 10
-JUMP = False
-
 def playgame():
     while check:
         # writeText()
