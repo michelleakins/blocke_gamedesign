@@ -123,7 +123,6 @@ def mainmenu():
         screen.blit(text,(120,50))
         menu = MENU_FNT.render("-instructions[space bar]", 1, (227,111,255))
         screen.blit(menu, (100,100))
-        
         menu = MENU_FNT.render("- settings", 1, (255,137,236))
         screen.blit(menu, (100,150))
         menu = MENU_FNT.render("- level select", 1, (137,156,255))
@@ -132,7 +131,30 @@ def mainmenu():
         screen.blit(menu, (100,250))
         menu = MENU_FNT.render("- exit game", 1, (137,255,200))
         screen.blit(menu, (100,300))
+
+        menu = MENU_FNT.render("   ___          ___", 1, (255,255,255))
+        screen.blit(menu, (192,420))
+        menu = MENU_FNT.render("   /       \___/        \ ", 1, (255,255,255))
+        screen.blit(menu, (180,460))
+        menu = MENU_FNT.render("|                        |", 1, (255,255,255))
+        screen.blit(menu, (200,480))
+        menu = MENU_FNT.render("\                       /", 1, (255,255,255))
+        screen.blit(menu, (200,500))
+        menu = MENU_FNT.render("  \                   /", 1, (255,255,255))
+        screen.blit(menu, (200,520))
+        menu = MENU_FNT.render("    \               /", 1, (255,255,255))
+        screen.blit(menu, (200,540))
+        menu = MENU_FNT.render("      \           /", 1, (255,255,255))
+        screen.blit(menu, (200,560))
+        menu = MENU_FNT.render("        \       /", 1, (255,255,255))
+        screen.blit(menu, (200,580))
+        menu = MENU_FNT.render("          \   /", 1, (255,255,255))
+        screen.blit(menu, (200,600))
+        menu = MENU_FNT.render("            \/", 1, (255,255,255))
+        screen.blit(menu, (200,620))
+    
         pygame.display.update()
+    
         pygame.time.delay(10)
 
 
