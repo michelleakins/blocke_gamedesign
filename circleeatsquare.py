@@ -104,7 +104,6 @@ def instructions():
         pygame.display.update()
         pygame.time.delay(10)
 
-
 def mainmenu():
     global menu, keys, check
     check = True
