@@ -39,6 +39,10 @@ randColor = random.choice(list(colors))
 
 TITLE_FNT = pygame.font.SysFont('hellvetica', 28)
 MENU_FNT = pygame.font.SysFont('helvetica', 40)
+SETTINGS_FNT = pygame.font.SysFont('helvetica',25 )
+SCOREBOARD_FNT = pygame.font.SysFont('helvetica',25 )
+LVL_FNT = pygame.font.SysFont('helvetica',25 )
+INS_FNT = pygame.font.SysFont('helvetica', 25)
 
 sq_color = colors.get(randColor)
 
@@ -46,18 +50,17 @@ fontsize = 12
 coordx = 25
 coordy = 26
 
+background = colors.get('baby blue')
+cr_color = colors.get('light blue')
+
 MAX = 10
 jumpcount = 10
 JUMP = False
 
-background = colors.get('baby blue')
-cr_color = colors.get('light blue')
-
 def instructions():
-    global INS_FNT, instructions, keys
+    global instructions, keys
     check = True
     while check:
-        INS_FNT = pygame.font.SysFont('helvetica', 25)
         instructions = INS_FNT.render("so basically...", 1, (149, 206, 255))
         screen.blit(instructions,(120,120))
         instructions = INS_FNT.render("this is a two player game in which", 1, (149, 206, 255))
@@ -118,21 +121,20 @@ def mainmenu():
         text = TITLE_FNT.render('$*:...welcome to circle eats square game!!!...:*$', 1, (220, 240, 240))
         screen.fill((0,0,0))
         screen.blit(text,(120,50))
-        menu = MENU_FNT.render("-instructions[space bar]", 1, (149,206,255))
+        menu = MENU_FNT.render("-instructions[space bar]", 1, (227,111,255))
         screen.blit(menu, (100,100))
         
-        menu = MENU_FNT.render("-settings", 1, (149,206,255))
+        menu = MENU_FNT.render("- settings", 1, (255,137,236))
         screen.blit(menu, (100,150))
-        menu = MENU_FNT.render("-level select", 1, (149,206,255))
-        screen.blit(menu, (100,190))
-        menu = MENU_FNT.render("-score board", 1, (149,206,255))
-        screen.blit(menu, (100,230))
-        menu = MENU_FNT.render("-exit game", 1, (149,206,255))
-        screen.blit(menu, (100,270))
+        menu = MENU_FNT.render("- level select", 1, (137,156,255))
+        screen.blit(menu, (100,200))
+        menu = MENU_FNT.render("- score board", 1, (137,212,255))
+        screen.blit(menu, (100,250))
+        menu = MENU_FNT.render("- exit game", 1, (137,255,200))
+        screen.blit(menu, (100,300))
         pygame.display.update()
         pygame.time.delay(10)
 
-mainmenu()
 
 def changecolor():
     global randColor
@@ -143,58 +145,61 @@ def changecolor():
             randColor = random.choice(list(colors))
         else:
             colorcheck = False
-    
-def playgame():
-    while check:
-        # writeText()
-        # pygame.draw.circle(screen, cr_color, (xc, yc), radius)
-        screen.fill(background)
-        for case in pygame.event.get():
-            if case.type == pygame.QUIT:
-                check = False
 
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and square.x >= move:
-            square.x -= move #subtract 5 from the x value
-        if keys[pygame.K_d] and square.x < WIDTH - wbox:
-            square.x += move 
-        #jumping part
-        if not JUMP:
-            if keys[pygame.K_w] and square.y >= move:
-                square.y -= move
-            if keys[pygame.K_s] and square.y < HEIGHT - hbox:
-                square.y += move
-            if keys[pygame.K_SPACE]:
-                JUMP = True
+mainmenu()
+
+check = True
+while check:
+    # writeText()
+    # pygame.draw.circle(screen, cr_color, (xc, yc), radius)
+    screen.fill(background)
+    for case in pygame.event.get():
+        if case.type == pygame.QUIT:
+            check = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_a] and square.x >= move:
+        square.x -= move #subtract 5 from the x value
+    if keys[pygame.K_d] and square.x < WIDTH - wbox:
+        square.x += move 
+    #jumping part
+    if not JUMP:
+        if keys[pygame.K_w] and square.y >= move:
+            square.y -= move
+        if keys[pygame.K_s] and square.y < HEIGHT - hbox:
+            square.y += move
+        if keys[pygame.K_SPACE]:
+            JUMP = True
+    else:
+        if jumpcount >= -MAX:
+            square.y -= jumpcount*abs(jumpcount)/2
+            jumpcount -= 1
         else:
-            if jumpcount >= -MAX:
-                square.y -= jumpcount*abs(jumpcount)/2
-                jumpcount -= 1
-            else:
-                jumpcount = MAX
-                JUMP = False
-        #finished circle
-        if keys[pygame.K_LEFT] and xc >=radius + move:
-            xc -= move
-        if keys[pygame.K_RIGHT] and xc < WIDTH - (radius +move):
-            xc += move
-        if keys[pygame.K_UP] and yc >=radius + move:
-            yc -= move
-        if keys[pygame.K_DOWN] and yc < HEIGHT - (radius + move):
-            yc += move
+            jumpcount = MAX
+            JUMP = False
+    #finished circle
+    if keys[pygame.K_LEFT] and xc >=radius + move:
+        xc -= move
+    if keys[pygame.K_RIGHT] and xc < WIDTH - (radius +move):
+        xc += move
+    if keys[pygame.K_UP] and yc >=radius + move:
+        yc -= move
+    if keys[pygame.K_DOWN] and yc < HEIGHT - (radius + move):
+        yc += move
 
-        checkcollide = square.collidepoint((xc, yc,))
+    checkcollide = square.collidepoint((xc, yc,))
 
-        if checkcollide:
-            square.x = random.randint(wbox, WIDTH-radius)
-            square.y = random.randint(hbox, HEIGHT-radius)
-            changecolor()
-            radius += move
-        if radius > 200:
-            quit()
-        # if pos(square.x) == pos(square.y):
-        #     print("CIRCLE ATE SQUARE")
-        pygame.draw.rect(screen, sq_color, square)
-        pygame.draw.circle(screen, cr_color, (xc, yc), radius)
-        pygame.display.update()
-        pygame.time.delay(10)
+    if checkcollide:
+        square.x = random.randint(wbox, WIDTH-radius)
+        square.y = random.randint(hbox, HEIGHT-radius)
+        changecolor()
+        radius += move
+    if radius > 200:
+        quit()
+    # if pos(square.x) == pos(square.y):
+    #     print("CIRCLE ATE SQUARE")
+    pygame.draw.rect(screen, sq_color, square)
+    pygame.draw.circle(screen, cr_color, (xc, yc), radius)
+    pygame.display.update()
+    pygame.time.delay(10)
+
