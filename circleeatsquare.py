@@ -6,6 +6,7 @@
 #objective of the game: the rectangle to run away from the circle. if they collide the circle eats the square
 #circle will get larger and new rectangle should appear somewhere on the screen
 
+#settings: screen size, color of circle, background color, circle color, sound on/off
 
 import os, random, time, pygame
 os.system('cls')
@@ -57,6 +58,15 @@ MAX = 10
 jumpcount = 10
 JUMP = False
 
+#square size
+wb= 20
+hb = 20
+xs=75
+ys=117
+square = pygame.Rect(xs, ys, wb, hb)
+sq_color = colors.get('light blue')
+pygame.draw.rect(screen, sq_color, square)
+
 def instructions():
     global instructions, keys
     check = True
@@ -105,7 +115,7 @@ def instructions():
         pygame.time.delay(10)
 
 def mainmenu():
-    global menu, keys, check
+    global menu, keys, check,xt, square, sq_color, i
     check = True
     while check:
         for case in pygame.event.get():
@@ -117,18 +127,28 @@ def mainmenu():
             screen.fill((0,0,0))
             instructions()            
             check = False
+        #create square for menu
+        square = pygame.Rect(xs, ys, wb, hb)
+        sq_color = colors.get('light blue')
         text = TITLE_FNT.render('$*:...welcome to circle eats square game!!!...:*$', 1, (220, 240, 240))
         screen.fill((0,0,0))
         screen.blit(text,(120,50))
-        menu = MENU_FNT.render("-instructions[space bar]", 1, (227,111,255))
+        pygame.draw.rect(screen, sq_color, square)
+        menuList=['INSTRUCTIONS',"SETTINGS","LEVEL 1","LEVEL 2", "LEVEL 3",'Scoreboard','Exit']
+        for i in range(5):
+            pygame.draw.rect(screen, sq_color, square)
+            square.y += 50
+
+        menu = MENU_FNT.render("instructions[space bar]", 1, (227,111,255))
         screen.blit(menu, (100,100))
-        menu = MENU_FNT.render("- settings", 1, (255,137,236))
+
+        menu = MENU_FNT.render("settings", 1, (255,137,236))
         screen.blit(menu, (100,150))
-        menu = MENU_FNT.render("- level select", 1, (137,156,255))
+        menu = MENU_FNT.render("level select", 1, (137,156,255))
         screen.blit(menu, (100,200))
-        menu = MENU_FNT.render("- score board", 1, (137,212,255))
+        menu = MENU_FNT.render("score board", 1, (137,212,255))
         screen.blit(menu, (100,250))
-        menu = MENU_FNT.render("- exit game", 1, (137,255,200))
+        menu = MENU_FNT.render("exit game", 1, (137,255,200))
         screen.blit(menu, (100,300))
 
         menu = MENU_FNT.render("   ___          ___", 1, (255,255,255))
@@ -156,18 +176,20 @@ def mainmenu():
     
         pygame.time.delay(10)
 
+mainmenu()
 
 def changecolor():
     global randColor
     colorcheck = True
     while colorcheck:
         randColor = random.choice(list(colors))
-        if randColor == background:
+        if colors.get(randColor) == background:
+            print(randColor)
+            print(background)
             randColor = random.choice(list(colors))
         else:
             colorcheck = False
 
-mainmenu()
 
 check = True
 while check:
