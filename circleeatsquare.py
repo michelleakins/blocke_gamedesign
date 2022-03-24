@@ -24,10 +24,6 @@ xs = 20
 ys = 20
 wbox = 30
 hbox = 30
-#circle variables
-radius = 15
-xc = random.randint(15, WIDTH-radius)
-yc = random.randint(15, HEIGHT-radius)
 #square
 square = pygame.Rect(xs, ys, wbox, hbox)
 #screen
@@ -53,10 +49,6 @@ coordy = 26
 
 background = colors.get('baby blue')
 cr_color = colors.get('light blue')
-
-MAX = 10
-jumpcount = 10
-JUMP = False
 
 #square size
 wb= 20
@@ -115,6 +107,82 @@ def instructions():
         pygame.display.update()
         pygame.time.delay(10)
 
+def changecolor():
+    global randColor
+    colorcheck = True
+    while colorcheck:
+        randColor = random.choice(list(colors))
+        if colors.get(randColor) == background:
+            print(randColor)
+            print(background)
+            randColor = random.choice(list(colors))
+        else:
+            colorcheck = False
+
+def playgame():
+    check = True
+    while check:
+        #circle variables
+        radius = 15
+        xc = random.randint(15, WIDTH-radius)
+        yc = random.randint(15, HEIGHT-radius)
+        MAX = 10
+        jumpcount = 10
+        JUMP = False
+        # writeText()
+        # pygame.draw.circle(screen, cr_color, (xc, yc), radius)
+        screen.fill(background)
+        for case in pygame.event.get():
+            if case.type == pygame.QUIT:
+                check = False
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a] and square.x >= move:
+            square.x -= move #subtract 5 from the x value
+        if keys[pygame.K_d] and square.x < WIDTH - wbox:
+            square.x += move 
+        #jumping part
+        if not JUMP:
+            if keys[pygame.K_w] and square.y >= move:
+                square.y -= move
+            if keys[pygame.K_s] and square.y < HEIGHT - hbox:
+                square.y += move
+            if keys[pygame.K_SPACE]:
+                JUMP = True
+        else:
+            if jumpcount >= -MAX:
+                square.y -= jumpcount*abs(jumpcount)/2
+                jumpcount -= 1
+            else:
+                jumpcount = MAX
+                JUMP = False
+        #finished circle
+        if keys[pygame.K_LEFT] and xc >=radius + move:
+            xc -= move
+        if keys[pygame.K_RIGHT] and xc < WIDTH - (radius +move):
+            xc += move
+        if keys[pygame.K_UP] and yc >=radius + move:
+            yc -= move
+        if keys[pygame.K_DOWN] and yc < HEIGHT - (radius + move):
+            yc += move
+
+        checkcollide = square.collidepoint((xc, yc,))
+
+        if checkcollide:
+            square.x = random.randint(wbox, WIDTH-radius)
+            square.y = random.randint(hbox, HEIGHT-radius)
+            changecolor()
+            radius += move
+        if radius > 200:
+            quit()
+        # if pos(square.x) == pos(square.y):
+        #     print("CIRCLE ATE SQUARE")
+        pygame.draw.rect(screen, sq_color, square)
+        pygame.draw.circle(screen, cr_color, (xc, yc), radius)
+        pygame.display.update()
+        pygame.time.delay(10)
+
+
 def mainmenu():
     global menu, keys, check,xt, square, sq_color, i, menuthingy
     check = True
@@ -125,7 +193,7 @@ def mainmenu():
                 quit()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
-            break
+            playgame()
         if keys[pygame.K_w]:
             screen.fill((0,0,0))
             instructions()            
@@ -187,71 +255,6 @@ def mainmenu():
 
 mainmenu()
 
-def changecolor():
-    global randColor
-    colorcheck = True
-    while colorcheck:
-        randColor = random.choice(list(colors))
-        if colors.get(randColor) == background:
-            print(randColor)
-            print(background)
-            randColor = random.choice(list(colors))
-        else:
-            colorcheck = False
 
 
-check = True
-while check:
-    # writeText()
-    # pygame.draw.circle(screen, cr_color, (xc, yc), radius)
-    screen.fill(background)
-    for case in pygame.event.get():
-        if case.type == pygame.QUIT:
-            check = False
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_a] and square.x >= move:
-        square.x -= move #subtract 5 from the x value
-    if keys[pygame.K_d] and square.x < WIDTH - wbox:
-        square.x += move 
-    #jumping part
-    if not JUMP:
-        if keys[pygame.K_w] and square.y >= move:
-            square.y -= move
-        if keys[pygame.K_s] and square.y < HEIGHT - hbox:
-            square.y += move
-        if keys[pygame.K_SPACE]:
-            JUMP = True
-    else:
-        if jumpcount >= -MAX:
-            square.y -= jumpcount*abs(jumpcount)/2
-            jumpcount -= 1
-        else:
-            jumpcount = MAX
-            JUMP = False
-    #finished circle
-    if keys[pygame.K_LEFT] and xc >=radius + move:
-        xc -= move
-    if keys[pygame.K_RIGHT] and xc < WIDTH - (radius +move):
-        xc += move
-    if keys[pygame.K_UP] and yc >=radius + move:
-        yc -= move
-    if keys[pygame.K_DOWN] and yc < HEIGHT - (radius + move):
-        yc += move
-
-    checkcollide = square.collidepoint((xc, yc,))
-
-    if checkcollide:
-        square.x = random.randint(wbox, WIDTH-radius)
-        square.y = random.randint(hbox, HEIGHT-radius)
-        changecolor()
-        radius += move
-    if radius > 200:
-        quit()
-    # if pos(square.x) == pos(square.y):
-    #     print("CIRCLE ATE SQUARE")
-    pygame.draw.rect(screen, sq_color, square)
-    pygame.draw.circle(screen, cr_color, (xc, yc), radius)
-    pygame.display.update()
-    pygame.time.delay(10)
 
