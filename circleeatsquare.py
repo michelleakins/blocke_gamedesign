@@ -67,6 +67,7 @@ square = pygame.Rect(xs, ys, wb, hb)
 sq_color = colors.get('light blue')
 pygame.draw.rect(screen, sq_color, square)
 
+
 def instructions():
     global instructions, keys
     check = True
@@ -115,7 +116,7 @@ def instructions():
         pygame.time.delay(10)
 
 def mainmenu():
-    global menu, keys, check,xt, square, sq_color, i
+    global menu, keys, check,xt, square, sq_color, i, menuthingy
     check = True
     while check:
         for case in pygame.event.get():
@@ -124,6 +125,8 @@ def mainmenu():
                 quit()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
+            break
+        if keys[pygame.K_w]:
             screen.fill((0,0,0))
             instructions()            
             check = False
@@ -134,22 +137,28 @@ def mainmenu():
         screen.fill((0,0,0))
         screen.blit(text,(120,50))
         pygame.draw.rect(screen, sq_color, square)
-        menuList=['INSTRUCTIONS',"SETTINGS","LEVEL 1","LEVEL 2", "LEVEL 3",'Scoreboard','Exit']
-        for i in range(5):
+        menuList=['INSTRUCTIONS [w]',"SETTINGS","LEVEL SELECT [comma] ",'SCOREBOARD [0]','EXIT [esc]', "PLAY GAME[space bar]"]
+        TextY = 112
+        for i in range(6):
+            message = menuList[i]
+            ClickText=INS_FNT.render(message,1,(0,169,184))
+            screen.blit(ClickText,(104,TextY))
             pygame.draw.rect(screen, sq_color, square)
             square.y += 50
+            TextY+=50
 
-        menu = MENU_FNT.render("instructions[space bar]", 1, (227,111,255))
-        screen.blit(menu, (100,100))
 
-        menu = MENU_FNT.render("settings", 1, (255,137,236))
-        screen.blit(menu, (100,150))
-        menu = MENU_FNT.render("level select", 1, (137,156,255))
-        screen.blit(menu, (100,200))
-        menu = MENU_FNT.render("score board", 1, (137,212,255))
-        screen.blit(menu, (100,250))
-        menu = MENU_FNT.render("exit game", 1, (137,255,200))
-        screen.blit(menu, (100,300))
+        # menu = MENU_FNT.render("instructions[space bar]", 1, (227,111,255))
+        # screen.blit(menu, (100,100))
+
+        # menu = MENU_FNT.render("settings", 1, (255,137,236))
+        # screen.blit(menu, (100,150))
+        # menu = MENU_FNT.render("level select", 1, (137,156,255))
+        # screen.blit(menu, (100,200))
+        # menu = MENU_FNT.render("score board", 1, (137,212,255))
+        # screen.blit(menu, (100,250))
+        # menu = MENU_FNT.render("exit game", 1, (137,255,200))
+        # screen.blit(menu, (100,300))
 
         menu = MENU_FNT.render("   ___          ___", 1, (255,255,255))
         screen.blit(menu, (192,420))
