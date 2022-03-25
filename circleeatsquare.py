@@ -32,6 +32,12 @@ pygame.display.set_caption('cirlce eats square')
 #define colors
 colors= {'light blue':[104,100,253],'baby blue':[104,159,203],'white':[255, 255, 255], 'orange':[255, 85, 0], 'purple': [48, 25, 52], 'navy': [5,31,64], 'pink':[200, 3, 75]}
 
+#circle
+radius = 15
+xc = random.randint(15, WIDTH-radius)
+yc = random.randint(15, HEIGHT-radius)
+
+
 randColor = random.choice(list(colors))
 
 TITLE_FNT = pygame.font.SysFont('hellvetica', 28)
@@ -112,6 +118,8 @@ def changecolor():
     colorcheck = True
     while colorcheck:
         randColor = random.choice(list(colors))
+        print("Color Randomization")
+        print(randColor)
         if colors.get(randColor) == background:
             print(randColor)
             print(background)
@@ -119,18 +127,17 @@ def changecolor():
         else:
             colorcheck = False
 
+    print ("Final Color")
+    print (randColor)
+
 def playgame():
+    global xc, yc, radius, randColor
     check = True
     while check:
-        #circle variables
-        radius = 15
-        xc = random.randint(15, WIDTH-radius)
-        yc = random.randint(15, HEIGHT-radius)
         MAX = 10
         jumpcount = 10
         JUMP = False
         # writeText()
-        # pygame.draw.circle(screen, cr_color, (xc, yc), radius)
         screen.fill(background)
         for case in pygame.event.get():
             if case.type == pygame.QUIT:
@@ -157,6 +164,7 @@ def playgame():
                 jumpcount = MAX
                 JUMP = False
         #finished circle
+        
         if keys[pygame.K_LEFT] and xc >=radius + move:
             xc -= move
         if keys[pygame.K_RIGHT] and xc < WIDTH - (radius +move):
@@ -166,18 +174,21 @@ def playgame():
         if keys[pygame.K_DOWN] and yc < HEIGHT - (radius + move):
             yc += move
 
-        checkcollide = square.collidepoint((xc, yc,))
+        
+        checkcollide = square.collidepoint(( xc, yc))
 
         if checkcollide:
             square.x = random.randint(wbox, WIDTH-radius)
             square.y = random.randint(hbox, HEIGHT-radius)
             changecolor()
+            print("OUT OF THE FUNCTION")
+            print(randColor)
             radius += move
         if radius > 200:
             quit()
         # if pos(square.x) == pos(square.y):
         #     print("CIRCLE ATE SQUARE")
-        pygame.draw.rect(screen, sq_color, square)
+        pygame.draw.rect(screen, randColor, square)
         pygame.draw.circle(screen, cr_color, (xc, yc), radius)
         pygame.display.update()
         pygame.time.delay(10)
@@ -192,9 +203,9 @@ def mainmenu():
                 check = False
                 quit()
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_0]:
             playgame()
-        if keys[pygame.K_w]:
+        if keys[pygame.K_DELETE]:
             screen.fill((0,0,0))
             instructions()            
             check = False
@@ -205,7 +216,7 @@ def mainmenu():
         screen.fill((0,0,0))
         screen.blit(text,(120,50))
         pygame.draw.rect(screen, sq_color, square)
-        menuList=['INSTRUCTIONS [w]',"SETTINGS","LEVEL SELECT [comma] ",'SCOREBOARD [0]','EXIT [esc]', "PLAY GAME[space bar]"]
+        menuList=['INSTRUCTIONS [DELETE]',"SETTINGS","LEVEL SELECT [comma] ",'SCOREBOARD [1]','EXIT [esc]', "PLAY GAME[0]"]
         TextY = 112
         for i in range(6):
             message = menuList[i]
@@ -252,6 +263,7 @@ def mainmenu():
         pygame.display.update()
     
         pygame.time.delay(10)
+
 
 mainmenu()
 
