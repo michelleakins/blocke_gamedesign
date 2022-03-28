@@ -9,6 +9,7 @@
 #settings: screen size, color of circle, background color, circle color, sound on/off
 
 import os, random, time, pygame
+from turtle import position
 os.system('cls')
 #initialize pygame
 pygame.init()
@@ -24,6 +25,10 @@ xs = 20
 ys = 20
 wbox = 30
 hbox = 30
+MAIN = True
+INSTRUCTIONS = False
+SETT = False
+
 #square
 square = pygame.Rect(xs, ys, wbox, hbox)
 #screen
@@ -67,7 +72,8 @@ pygame.draw.rect(screen, sq_color, square)
 
 
 def instructions():
-    global instructions, keys
+    global instructions, keys, instructions1
+    instructions1 = ['so basically, this is a two player game in which', 'one person is the circle and the other person is the square', 'and the circle is trying to eat the square by tagging it', '']
     check = True
     while check:
         instructions = INS_FNT.render("so basically...", 1, (149, 206, 255))
@@ -127,8 +133,10 @@ def changecolor():
         else:
             colorcheck = False
 
-    print ("Final Color")
-    print (randColor)
+INST = True
+
+print ("Final Color")
+print (randColor)
 
 def playgame():
     global xc, yc, radius, randColor
@@ -193,9 +201,12 @@ def playgame():
         pygame.display.update()
         pygame.time.delay(10)
 
+menuList=['INSTRUCTIONS [DELETE]',"SETTINGS","LEVEL SELECT [comma] ",'SCOREBOARD [1]','EXIT [esc]', "PLAY GAME[0]"]
 
-def mainmenu():
-    global menu, keys, check,xt, square, sq_color, i, menuthingy
+settingList = ['screen size', 'Background color', 'Font size', 'Circle color', 'Square color']
+#this is a function using a parameter
+def mainmenu(mList):
+    global menu, keys, check,xt, square, sq_color, i, menuthingy, mouse_pos
     check = True
     while check:
         for case in pygame.event.get():
@@ -203,8 +214,12 @@ def mainmenu():
                 check = False
                 quit()
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_0]:
-            playgame()
+        if case.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+            print(mouse_pos)
+            if ((mouse_pos[0] > 20 and mouse_pos[0] < 60) and (mouse_pos[1] > 250 and mouse_pos[0] < 290)) or INSTRUCTIONS:
+                screen.fill(background)
+                instructions()
         if keys[pygame.K_DELETE]:
             screen.fill((0,0,0))
             instructions()            
@@ -218,26 +233,13 @@ def mainmenu():
         pygame.draw.rect(screen, sq_color, square)
         menuList=['INSTRUCTIONS [DELETE]',"SETTINGS","LEVEL SELECT [comma] ",'SCOREBOARD [1]','EXIT [esc]', "PLAY GAME[0]"]
         TextY = 112
-        for i in range(6):
+        for i in range(len(mList)):
             message = menuList[i]
             ClickText=INS_FNT.render(message,1,(0,169,184))
             screen.blit(ClickText,(104,TextY))
             pygame.draw.rect(screen, sq_color, square)
             square.y += 50
             TextY+=50
-
-
-        # menu = MENU_FNT.render("instructions[space bar]", 1, (227,111,255))
-        # screen.blit(menu, (100,100))
-
-        # menu = MENU_FNT.render("settings", 1, (255,137,236))
-        # screen.blit(menu, (100,150))
-        # menu = MENU_FNT.render("level select", 1, (137,156,255))
-        # screen.blit(menu, (100,200))
-        # menu = MENU_FNT.render("score board", 1, (137,212,255))
-        # screen.blit(menu, (100,250))
-        # menu = MENU_FNT.render("exit game", 1, (137,255,200))
-        # screen.blit(menu, (100,300))
 
         menu = MENU_FNT.render("   ___          ___", 1, (255,255,255))
         screen.blit(menu, (192,420))
@@ -265,7 +267,7 @@ def mainmenu():
         pygame.time.delay(10)
 
 
-mainmenu()
+mainmenu(menuList)
 
 
 
