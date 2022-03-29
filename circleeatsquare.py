@@ -1,273 +1,251 @@
-#michelle akins
-#learning to draw circles and squares
-#learning how to use keys to move objects
-#learn about dictionary
+#MAria I SUarez
+#learning how to draw circles and rectangles
+#use keys to move objects
+#Using Dictionaries
 
-#objective of the game: the rectangle to run away from the circle. if they collide the circle eats the square
-#circle will get larger and new rectangle should appear somewhere on the screen
-
-#settings: screen size, color of circle, background color, circle color, sound on/off
-
-import os, random, time, pygame
-from turtle import position
-os.system('cls')
+#Objective of the game is for the rect to run away fom the circle, if they collide the circle etas the square, 
+#circle will  get larger, and a new rect should appear somewhere on the screen
+# K_UP                  up circle
+# K_DOWN                down circle
+# K_RIGHT               right circle
+# K_LEFT                left circle
+# K_a                   left square
+# K_d                   right square
+# K_w                   up square
+# K_s                   down square
+# K_SPACE               jump
+#initialize pygame
+from dis import Instruction
+import os, random, time, pygame, math
+from pickle import TRUE
 #initialize pygame
 pygame.init()
 
-#declare constants, variables, init, dictionaries
-#suare size
-WIDTH = 700
-HEIGHT = 700
-check = True #for the while loop
-move = 5 #5 pixels
+#Declare constants, variables, list, dictionaries, any object
+#scree size
+WIDTH=700
+HEIGHT=700
+xMs=50
+yMs=250
+wb=30
+hb=30
+MAIN=TRUE
+INST=False
+SETT=False
+LEV_I=False
+#List f messages
+MenuList=['Instructions','Settings', " ssfsdf","dasdas",'fdgdfg','asdasd','asdasd']
+SettingList=['Screen Size','Font Size','C','BC']
+check=True #for the while loop
+move=5 #pixels
 #square variables
-xs = 20
-ys = 20
-wbox = 30
-hbox = 30
-MAIN = True
-INSTRUCTIONS = False
-SETT = False
+xs=20
+ys=20
+wbox=30
+hbox=30
+#circle variables
+rad=15
+xc=random.randint(rad, WIDTH-rad)
+yc=random.randint(rad, HEIGHT-rad)
 
-#square
-square = pygame.Rect(xs, ys, wbox, hbox)
-#screen
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('cirlce eats square')
+#inscribed Square:
+ibox=int(rad*math.sqrt(2))
+startpoint = (int(xc-ibox/2),int(yc-ibox/2))
+print(startpoint[0]-ibox,startpoint[1])
+insSquare=pygame.Rect(startpoint[0],startpoint[1],ibox,ibox)
+#creating the rect object
+square=pygame.Rect(xs,ys,wbox,hbox)
+
+#create screen
+screen=pygame.display.set_mode((WIDTH,HEIGHT))
+pygame.display.set_caption('Circle eats Square')
+
 #define colors
-colors= {'light blue':[104,100,253],'baby blue':[104,159,203],'white':[255, 255, 255], 'orange':[255, 85, 0], 'purple': [48, 25, 52], 'navy': [5,31,64], 'pink':[200, 3, 75]}
+colors={'white':[255,255,255], 'red':[255,0,0], 'aqua':[102,153, 255],
+'orange':[255,85,0],'purple':[48,25,52],'navy':[5,31,64],'pink':[200,3,75]}
+#Get colors
+background= colors.get('white')
+randColor=''
+cr_color=colors.get('aqua')
+sqM_color=colors.get('pink')
 
-#circle
-radius = 15
-xc = random.randint(15, WIDTH-radius)
-yc = random.randint(15, HEIGHT-radius)
+#create fifferent type 
+TITLE_FNT=pygame.font.SysFont('comicsans', 80)
+MENU_FNT=pygame.font.SysFont('comicsans', 40)
+INST_FNT=pygame.font.SysFont('comicsans', 30)
 
+#Create Title
+def TitleMenu(Message):
+    text=TITLE_FNT.render(Message, 1, (255,0,0))
+    screen.fill((255,255,255))
+    #get the width  the text 
+    #x value = WIDTH/2 - wText/2
+    xt=WIDTH/2-text.get_width()/2
+    screen.blit(text,(xt,50))
 
-randColor = random.choice(list(colors))
-
-TITLE_FNT = pygame.font.SysFont('hellvetica', 28)
-MENU_FNT = pygame.font.SysFont('helvetica', 40)
-SETTINGS_FNT = pygame.font.SysFont('helvetica',25 )
-SCOREBOARD_FNT = pygame.font.SysFont('helvetica',25 )
-LVL_FNT = pygame.font.SysFont('helvetica',25 )
-INS_FNT = pygame.font.SysFont('helvetica', 25)
-
-sq_color = colors.get(randColor)
-
-fontsize = 12
-coordx = 25
-coordy = 26
-
-background = colors.get('baby blue')
-cr_color = colors.get('light blue')
-
-#square size
-wb= 20
-hb = 20
-xs=75
-ys=117
-square = pygame.Rect(xs, ys, wb, hb)
-sq_color = colors.get('light blue')
-pygame.draw.rect(screen, sq_color, square)
-
+def MainMenu(Mlist):
+    txty=243
+    squareM.y=250
+    for i in range(len(Mlist)):
+        message=Mlist[i]
+        text=INST_FNT.render(message,1,(51,131,51))
+        screen.blit(text,(90,txty))
+        pygame.draw.rect(screen,sqM_color, squareM )
+        squareM.y +=50
+        txty+=50
+    pygame.display.update()
+    pygame.time.delay(10)
 
 def instructions():
     global instructions, keys, instructions1
     instructions1 = ['so basically, this is a two player game in which', 'one person is the circle and the other person is the square', 'and the circle is trying to eat the square by tagging it', '']
     check = True
     while check:
-        instructions = INS_FNT.render("so basically...", 1, (149, 206, 255))
+        instructions = INST_FNT.render("so basically...", 1, (149, 206, 255))
         screen.blit(instructions,(120,120))
-        instructions = INS_FNT.render("this is a two player game in which", 1, (149, 206, 255))
+        instructions = INST_FNT.render("this is a two player game in which", 1, (149, 206, 255))
         screen.blit(instructions,(120,160))
-        instructions = INS_FNT.render("one person is the circle and the other person is the square.", 1, (149, 206, 255))
+        instructions = INST_FNT.render("one person is the circle and the other person is the square.", 1, (149, 206, 255))
         screen.blit(instructions,(120,180))
-        instructions = INS_FNT.render('and the circle is trying to eat the sqaure by tagging it', 1, (149, 206, 255))
+        instructions = INST_FNT.render('and the circle is trying to eat the sqaure by tagging it', 1, (149, 206, 255))
         screen.blit(instructions,(120,200))
-        instructions = INS_FNT.render(' ', 1, (149, 206, 255))
+        instructions = INST_FNT.render(' ', 1, (149, 206, 255))
         screen.blit(instructions,(120,220))
-        instructions = INS_FNT.render('CONTROLS FOR SQUARE:', 1, (227, 111, 255))
+        instructions = INST_FNT.render('CONTROLS FOR SQUARE:', 1, (227, 111, 255))
         screen.blit(instructions,(120,250))
-        instructions = INS_FNT.render('W - up', 1, (149, 206, 255))
+        instructions = INST_FNT.render('W - up', 1, (149, 206, 255))
         screen.blit(instructions,(120,270))
-        instructions = INS_FNT.render('S - down', 1, (149, 206, 255))
+        instructions = INST_FNT.render('S - down', 1, (149, 206, 255))
         screen.blit(instructions,(120,290))
-        instructions = INS_FNT.render('A - left', 1, (149, 206, 255))
+        instructions = INST_FNT.render('A - left', 1, (149, 206, 255))
         screen.blit(instructions,(120,310))
-        instructions = INS_FNT.render('D - right', 1, (149, 206, 255))
+        instructions = INST_FNT.render('D - right', 1, (149, 206, 255))
         screen.blit(instructions,(120,330))
-        instructions = INS_FNT.render('CONTROLS FOR CIRCLE:', 1, (227, 111, 255))
+        instructions = INST_FNT.render('CONTROLS FOR CIRCLE:', 1, (227, 111, 255))
         screen.blit(instructions,(120,370))
-        instructions = INS_FNT.render('up arrow (^) - up', 1, (149, 206, 255))
+        instructions = INST_FNT.render('up arrow (^) - up', 1, (149, 206, 255))
         screen.blit(instructions,(120,390))
-        instructions = INS_FNT.render('down arrow - down', 1, (149, 206, 255))
+        instructions = INST_FNT.render('down arrow - down', 1, (149, 206, 255))
         screen.blit(instructions,(120,410))
-        instructions = INS_FNT.render('left arrow(<) - left', 1, (149, 206, 255))
+        instructions = INST_FNT.render('left arrow(<) - left', 1, (149, 206, 255))
         screen.blit(instructions,(120,430))
-        instructions = INS_FNT.render('right arrow(>) - right', 1, (149, 206, 255))
+        instructions = INST_FNT.render('right arrow(>) - right', 1, (149, 206, 255))
         screen.blit(instructions,(120,450))
-        instructions = INS_FNT.render('circle.... try to to get square!!', 1, (227, 111, 255))
+        instructions = INST_FNT.render('circle.... try to to get square!!', 1, (227, 111, 255))
         screen.blit(instructions,(120,540))
-        instructions = INS_FNT.render('back [< left arrow]', 1, (255, 255, 255))
+        instructions = INST_FNT.render('back [< left arrow]', 1, (255, 255, 255))
         screen.blit(instructions,(50,600))
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-                mainmenu()
         for case in pygame.event.get():
                     if case.type == pygame.QUIT:
                         quit()
         pygame.display.update()
         pygame.time.delay(10)
 
-def changecolor():
+#Create square fr menu
+
+squareM=pygame.Rect(xMs,yMs,wb,hb)
+#This is a function uses a parameter
+
+def changeColor():
     global randColor
-    colorcheck = True
-    while colorcheck:
-        randColor = random.choice(list(colors))
-        print("Color Randomization")
-        print(randColor)
-        if colors.get(randColor) == background:
+    colorCheck=True
+    while colorCheck:
+        randColor=random.choice(list(colors))
+        if colors.get(randColor)==background:
             print(randColor)
             print(background)
-            randColor = random.choice(list(colors))
+            randColor=random.choice(list(colors))
         else:
-            colorcheck = False
+            colorCheck=False
 
-INST = True
+#sq_color=colors.get('navy')
+#Making a rand c f the square
+changeColor()
+sq_color=colors.get(randColor)
 
-print ("Final Color")
-print (randColor)
 
-def playgame():
-    global xc, yc, radius, randColor
-    check = True
-    while check:
-        MAX = 10
-        jumpcount = 10
-        JUMP = False
-        # writeText()
+MAX=10
+jumpCount=MAX
+JUMP=False
+while check:
+    
+    if MAIN:
         screen.fill(background)
-        for case in pygame.event.get():
-            if case.type == pygame.QUIT:
-                check = False
+        TitleMenu("MENU")
+        MainMenu(MenuList)
+    for case in pygame.event.get():
+        if case.type==pygame.QUIT:
+            check=False
+    keys=pygame.key.get_pressed() #this returns a list
+    if case.type ==pygame.MOUSEBUTTONDOWN:
+        mouse_pos=pygame.mouse.get_pos()
+        print(mouse_pos)
+        if ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >250 and mouse_pos[1] <290))or INST :
+            MAIN=False
+            screen.fill(background)
+            instructions()
+            TitleMenu("INSTRUCTIONS")
+            INST=True
 
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and square.x >= move:
-            square.x -= move #subtract 5 from the x value
-        if keys[pygame.K_d] and square.x < WIDTH - wbox:
-            square.x += move 
-        #jumping part
-        if not JUMP:
-            if keys[pygame.K_w] and square.y >= move:
-                square.y -= move
-            if keys[pygame.K_s] and square.y < HEIGHT - hbox:
-                square.y += move
-            if keys[pygame.K_SPACE]:
-                JUMP = True
-        else:
-            if jumpcount >= -MAX:
-                square.y -= jumpcount*abs(jumpcount)/2
-                jumpcount -= 1
-            else:
-                jumpcount = MAX
-                JUMP = False
-        #finished circle
+
+#     if keys[pygame.K_a] and square.x >=move:
+#         square.x -= move #substract 5 from the x value
+#     if keys[pygame.K_d] and square.x <WIDTH-wbox:
+#         square.x += move  
+#     #Jumping part
+#     if not JUMP:
+#         if keys[pygame.K_w]:
+#             square.y -= move
+#         if keys[pygame.K_s]:
+#             square.y += move   
+#         if keys[pygame.K_SPACE]:
+#             JUMP=True
+#     else:
+#         if jumpCount >=-MAX:
+#             square.y -= jumpCount*abs(jumpCount)/2
+#             jumpCount-=1
+#         else:
+#             jumpCount=MAX
+#             JUMP=False
+
+# #Finish circle
+#     if keys[pygame.K_LEFT] and xc >=rad+move:
+#         xc -= move #substract 5 from the x value
+#         insSquare.x -= move
+#     if keys[pygame.K_RIGHT] and xc <=WIDTH -(rad+move):
+#         xc += move #substract 5 from the x value  
+#         insSquare.x += move
+#     if keys[pygame.K_DOWN] and yc <=HEIGHT-(rad+move):
+#         yc += move #substract 5 from the x value
+#         insSquare.y += move
+#     if keys[pygame.K_UP] and yc >=rad+move:
+#         yc -= move #substract 5 from the x value  
+#         insSquare.y -= move
         
-        if keys[pygame.K_LEFT] and xc >=radius + move:
-            xc -= move
-        if keys[pygame.K_RIGHT] and xc < WIDTH - (radius +move):
-            xc += move
-        if keys[pygame.K_UP] and yc >=radius + move:
-            yc -= move
-        if keys[pygame.K_DOWN] and yc < HEIGHT - (radius + move):
-            yc += move
-
+#     checkCollide = square.colliderect(insSquare)
+#     if checkCollide:
+#         square.x=random.randint(wbox, WIDTH-wbox)
+#         square.y=random.randint(hbox, HEIGHT-hbox)   
+#         changeColor()
+#         sq_color=colors.get(randColor)
+#         rad +=move
+#         ibox=int(rad*math.sqrt(2))
+#         startpoint = (int(xc-ibox/2),int(yc-ibox/2))
+#         insSquare=pygame.Rect(startpoint[0],startpoint[1],ibox,ibox)
         
-        checkcollide = square.collidepoint(( xc, yc))
-
-        if checkcollide:
-            square.x = random.randint(wbox, WIDTH-radius)
-            square.y = random.randint(hbox, HEIGHT-radius)
-            changecolor()
-            print("OUT OF THE FUNCTION")
-            print(randColor)
-            radius += move
-        if radius > 200:
-            quit()
-        # if pos(square.x) == pos(square.y):
-        #     print("CIRCLE ATE SQUARE")
-        pygame.draw.rect(screen, randColor, square)
-        pygame.draw.circle(screen, cr_color, (xc, yc), radius)
-        pygame.display.update()
-        pygame.time.delay(10)
-
-menuList=['INSTRUCTIONS [DELETE]',"SETTINGS","LEVEL SELECT [comma] ",'SCOREBOARD [1]','EXIT [esc]', "PLAY GAME[0]"]
-
-settingList = ['screen size', 'Background color', 'Font size', 'Circle color', 'Square color']
-#this is a function using a parameter
-def mainmenu(mList):
-    global menu, keys, check,xt, square, sq_color, i, menuthingy, mouse_pos
-    check = True
-    while check:
-        for case in pygame.event.get():
-            if case.type == pygame.QUIT:
-                check = False
-                quit()
-        keys = pygame.key.get_pressed()
-        if case.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
-            print(mouse_pos)
-            if ((mouse_pos[0] > 20 and mouse_pos[0] < 60) and (mouse_pos[1] > 250 and mouse_pos[0] < 290)) or INSTRUCTIONS:
-                screen.fill(background)
-                instructions()
-        if keys[pygame.K_DELETE]:
-            screen.fill((0,0,0))
-            instructions()            
-            check = False
-        #create square for menu
-        square = pygame.Rect(xs, ys, wb, hb)
-        sq_color = colors.get('light blue')
-        text = TITLE_FNT.render('$*:...welcome to circle eats square game!!!...:*$', 1, (220, 240, 240))
-        screen.fill((0,0,0))
-        screen.blit(text,(120,50))
-        pygame.draw.rect(screen, sq_color, square)
-        menuList=['INSTRUCTIONS [DELETE]',"SETTINGS","LEVEL SELECT [comma] ",'SCOREBOARD [1]','EXIT [esc]', "PLAY GAME[0]"]
-        TextY = 112
-        for i in range(len(mList)):
-            message = menuList[i]
-            ClickText=INS_FNT.render(message,1,(0,169,184))
-            screen.blit(ClickText,(104,TextY))
-            pygame.draw.rect(screen, sq_color, square)
-            square.y += 50
-            TextY+=50
-
-        menu = MENU_FNT.render("   ___          ___", 1, (255,255,255))
-        screen.blit(menu, (192,420))
-        menu = MENU_FNT.render("   /       \___/        \ ", 1, (255,255,255))
-        screen.blit(menu, (180,460))
-        menu = MENU_FNT.render("|                        |", 1, (255,255,255))
-        screen.blit(menu, (200,480))
-        menu = MENU_FNT.render("\                       /", 1, (255,255,255))
-        screen.blit(menu, (200,500))
-        menu = MENU_FNT.render("  \                   /", 1, (255,255,255))
-        screen.blit(menu, (200,520))
-        menu = MENU_FNT.render("    \               /", 1, (255,255,255))
-        screen.blit(menu, (200,540))
-        menu = MENU_FNT.render("      \           /", 1, (255,255,255))
-        screen.blit(menu, (200,560))
-        menu = MENU_FNT.render("        \       /", 1, (255,255,255))
-        screen.blit(menu, (200,580))
-        menu = MENU_FNT.render("          \   /", 1, (255,255,255))
-        screen.blit(menu, (200,600))
-        menu = MENU_FNT.render("            \/", 1, (255,255,255))
-        screen.blit(menu, (200,620))
     
-        pygame.display.update()
-    
-        pygame.time.delay(10)
+#     pygame.draw.rect(screen, sq_color, square)
+#     pygame.draw.rect(screen,cr_color, insSquare )
+#     pygame.draw.circle(screen, cr_color, (xc,yc), rad)
+
+    pygame.display.update()
+    pygame.time.delay(10)
 
 
-mainmenu(menuList)
+
+
+
 
 
 
