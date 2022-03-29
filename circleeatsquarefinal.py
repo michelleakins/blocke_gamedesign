@@ -123,6 +123,54 @@ changeColor()
 sq_color=colors.get(randColor)
 
 
+def instructions():
+    global instructions, keys, instructions1
+    instructions1 = ['so basically, this is a two player game in which', 'one person is the circle and the other person is the square', 'and the circle is trying to eat the square by tagging it', '']
+    check = True
+    while check:
+        instructions = INST_FNT.render("so basically...", 1, (149, 206, 255))
+        screen.blit(instructions,(120,120))
+        instructions = INST_FNT.render("this is a two player game in which", 1, (149, 206, 255))
+        screen.blit(instructions,(120,160))
+        instructions = INST_FNT.render("one person is the circle and the other person is the square.", 1, (149, 206, 255))
+        screen.blit(instructions,(120,180))
+        instructions = INST_FNT.render('and the circle is trying to eat the sqaure by tagging it', 1, (149, 206, 255))
+        screen.blit(instructions,(120,200))
+        instructions = INST_FNT.render(' ', 1, (149, 206, 255))
+        screen.blit(instructions,(120,220))
+        instructions = INST_FNT.render('CONTROLS FOR SQUARE:', 1, (227, 111, 255))
+        screen.blit(instructions,(120,250))
+        instructions = INST_FNT.render('W - up', 1, (149, 206, 255))
+        screen.blit(instructions,(120,270))
+        instructions = INST_FNT.render('S - down', 1, (149, 206, 255))
+        screen.blit(instructions,(120,290))
+        instructions = INST_FNT.render('A - left', 1, (149, 206, 255))
+        screen.blit(instructions,(120,310))
+        instructions = INST_FNT.render('D - right', 1, (149, 206, 255))
+        screen.blit(instructions,(120,330))
+        instructions = INST_FNT.render('CONTROLS FOR CIRCLE:', 1, (227, 111, 255))
+        screen.blit(instructions,(120,370))
+        instructions = INST_FNT.render('up arrow (^) - up', 1, (149, 206, 255))
+        screen.blit(instructions,(120,390))
+        instructions = INST_FNT.render('down arrow - down', 1, (149, 206, 255))
+        screen.blit(instructions,(120,410))
+        instructions = INST_FNT.render('left arrow(<) - left', 1, (149, 206, 255))
+        screen.blit(instructions,(120,430))
+        instructions = INST_FNT.render('right arrow(>) - right', 1, (149, 206, 255))
+        screen.blit(instructions,(120,450))
+        instructions = INST_FNT.render('circle.... try to to get square!!', 1, (227, 111, 255))
+        screen.blit(instructions,(120,540))
+        instructions = INST_FNT.render('back [< left arrow]', 1, (255, 255, 255))
+        screen.blit(instructions,(50,600))
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+                mainmenu()
+        for case in pygame.event.get():
+                    if case.type == pygame.QUIT:
+                        quit()
+        pygame.display.update()
+        pygame.time.delay(10)
+
 MAX=10
 jumpCount=MAX
 JUMP=False
@@ -136,15 +184,18 @@ def playgameyuh():
         for case in pygame.event.get():
             if case.type==pygame.QUIT:
                 check=False
+
         keys=pygame.key.get_pressed() #this returns a list
         if case.type ==pygame.MOUSEBUTTONDOWN:
             mouse_pos=pygame.mouse.get_pos()
             print(mouse_pos)
             if ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >250 and mouse_pos[1] <290))or INST :
                 MAIN=False
-                screen.fill(background)
-                TitleMenu("INSTRUCTIONS")
+                # screen.fill(background)
+                instructions()
+                # TitleMenu("INSTRUCTIONS")
                 INST=True
+                pygame.display.update()
 
         if keys[pygame.K_a] and square.x >=move:
             square.x -= move #substract 5 from the x value
