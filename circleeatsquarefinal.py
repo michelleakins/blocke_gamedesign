@@ -1,4 +1,4 @@
-#MAria I SUarez
+#Michelle Akins
 #learning how to draw circles and rectangles
 #use keys to move objects
 #Using Dictionaries
@@ -30,7 +30,7 @@ xMs=50
 yMs=250
 wb=30
 hb=30
-MAIN=TRUE
+MAIN=True
 INST=False
 SETT=False
 LEV_I=False
@@ -117,17 +117,19 @@ def changeColor():
         else:
             colorCheck=False
 
-#sq_color=colors.get('navy')
-#Making a rand c f the square
-changeColor()
-sq_color=colors.get(randColor)
+def settings():
+    screen.fill(background)
+    TitleMenu('JOE MAMA')
+    pygame.display.update()
+    pygame.time.delay(10000)
 
+q_color=colors.get(randColor)
 
 def instructions():
     global instructions, keys, instructions1
-    instructions1 = ['so basically, this is a two player game in which', 'one person is the circle and the other person is the square', 'and the circle is trying to eat the square by tagging it', '']
     check = True
     while check:
+        screen.fill(background)
         instructions = INST_FNT.render("so basically...", 1, (149, 206, 255))
         screen.blit(instructions,(120,120))
         instructions = INST_FNT.render("this is a two player game in which", 1, (149, 206, 255))
@@ -160,94 +162,20 @@ def instructions():
         screen.blit(instructions,(120,450))
         instructions = INST_FNT.render('circle.... try to to get square!!', 1, (227, 111, 255))
         screen.blit(instructions,(120,540))
-        instructions = INST_FNT.render('back [< left arrow]', 1, (255, 255, 255))
-        screen.blit(instructions,(50,600))
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-                mainmenu()
-        for case in pygame.event.get():
-                    if case.type == pygame.QUIT:
-                        quit()
+        instructions = INST_FNT.render('back [< left arrow]', 1, (227, 111, 255))
+        screen.blit(instructions,(120,540))
         pygame.display.update()
         pygame.time.delay(10)
+        # keys = pygame.key.get_pressed()
+        # if keys[pygame.K_LEFT]:
+        #         playgameyuh()
+        # for case in pygame.event.get():
+        #             if case.type == pygame.QUIT:
+        #                 quit()
 
 MAX=10
 jumpCount=MAX
 JUMP=False
 
-def playgameyuh():
-    while check:
-        if MAIN:
-            screen.fill(background)
-            TitleMenu("MENU")
-            MainMenu(MenuList)
-        for case in pygame.event.get():
-            if case.type==pygame.QUIT:
-                check=False
 
-        keys=pygame.key.get_pressed() #this returns a list
-        if case.type ==pygame.MOUSEBUTTONDOWN:
-            mouse_pos=pygame.mouse.get_pos()
-            print(mouse_pos)
-            if ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >250 and mouse_pos[1] <290))or INST :
-                MAIN=False
-                # screen.fill(background)
-                instructions()
-                # TitleMenu("INSTRUCTIONS")
-                INST=True
-                pygame.display.update()
 
-        if keys[pygame.K_a] and square.x >=move:
-            square.x -= move #substract 5 from the x value
-        if keys[pygame.K_d] and square.x <WIDTH-wbox:
-            square.x += move  
-        #Jumping part
-        if not JUMP:
-            if keys[pygame.K_w]:
-                square.y -= move
-            if keys[pygame.K_s]:
-                square.y += move   
-            if keys[pygame.K_SPACE]:
-                JUMP=True
-        else:
-            if jumpCount >=-MAX:
-                square.y -= jumpCount*abs(jumpCount)/2
-                jumpCount-=1
-            else:
-                jumpCount=MAX
-                JUMP=False
-
-    #Finish circle
-        if keys[pygame.K_LEFT] and xc >=rad+move:
-            xc -= move #substract 5 from the x value
-            insSquare.x -= move
-        if keys[pygame.K_RIGHT] and xc <=WIDTH -(rad+move):
-            xc += move #substract 5 from the x value  
-            insSquare.x += move
-        if keys[pygame.K_DOWN] and yc <=HEIGHT-(rad+move):
-            yc += move #substract 5 from the x value
-            insSquare.y += move
-        if keys[pygame.K_UP] and yc >=rad+move:
-            yc -= move #substract 5 from the x value  
-            insSquare.y -= move
-            
-        checkCollide = square.colliderect(insSquare)
-        if checkCollide:
-            square.x=random.randint(wbox, WIDTH-wbox)
-            square.y=random.randint(hbox, HEIGHT-hbox)   
-            changeColor()
-            sq_color=colors.get(randColor)
-            rad +=move
-            ibox=int(rad*math.sqrt(2))
-            startpoint = (int(xc-ibox/2),int(yc-ibox/2))
-            insSquare=pygame.Rect(startpoint[0],startpoint[1],ibox,ibox)
-            
-        
-        pygame.draw.rect(screen, sq_color, square)
-        pygame.draw.rect(screen,cr_color, insSquare )
-        pygame.draw.circle(screen, cr_color, (xc,yc), rad)
-
-        pygame.display.update()
-        pygame.time.delay(10)
-
-playgameyuh()
