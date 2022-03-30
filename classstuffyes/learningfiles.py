@@ -11,12 +11,23 @@ import pygame, os, datetime
 os.system('cls')
 
 date = datetime.datetime.now()
-score = 345
-name = 'Jay'
-scoreline = str(score)+" "+name+ " "+ date.strftime('%m/%d/%Y')
+score = 200
+name = 'Jesse'
+scoreline = str(score)+"\t"+name+ "\t"+ date.strftime('%m/%d/%Y'+"\n")
 print(scoreline)
 #open a file and write
-myfile = open('classstuffyes\scetxt.txt', "a")
-myfile.write(scoreline)
-
+myfile = open('classstuffyes\scetxt.txt', "r")
+lines = myfile.readline()
+print(lines)
 myfile.close() 
+
+# date = datetime.datetime.now()
+# score = 345
+# name = 'Jay'
+# scoreline = str(score)+"\t"+name+ "\t"+ date.strftime('%m/%d/%Y'+"\n")
+# print(scoreline)
+# #open a file and write
+# myfile = open('classstuffyes\scetxt.txt', "r")
+# myfile.write(scoreline)
+
+# myfile.close() 
