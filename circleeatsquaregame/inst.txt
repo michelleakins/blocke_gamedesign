@@ -1,0 +1,18 @@
+so basically...
+this is a two player game in which
+one person is the circle and the other person is the square.
+and the circle is trying to eat the sqaure by tagging it
+
+CONTROLS FOR SQUARE:
+    W - up
+    S - down
+    A - left
+    D - right
+CONTROLS FOR CIRCLE:
+    up arrow (^) - up
+    down arrow - down
+    left arrow(<) - left
+    right arrow(>) - right
+circle.... try to to get square!
+
+back
