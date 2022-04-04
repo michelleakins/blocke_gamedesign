@@ -16,6 +16,7 @@
 # K_SPACE               jump
 #initialize pygame
 import os, random, time, pygame, math, datetime
+from turtle import update
 os.system('cls')
 name = input("what is your name?")
 #initialize pygame
@@ -29,6 +30,10 @@ INSTRUCTION_FONT=pygame.font.SysFont('proxmanova',35)
 #scree size
 WIDTH=700
 HEIGHT=700
+WIDTH2 = 750
+HEIGHT2= 750
+WIDTH3 = 800
+HEIGHT3 = 800
 xMs=50
 yMs=250
 wb=30
@@ -44,7 +49,7 @@ EXIT = False
 
 # menu and setting list for pages 
 MenuList=['Instructions','Settings', "Play Game","Exit",'Scoreboard']
-SettingList=['Screen Size','Font Size','Circle Color','Background Color']
+SettingList=['Screen Size','Font color','Background Color']
 check=True #for the while loop
 move=5 #pixels
 
@@ -68,6 +73,9 @@ square=pygame.Rect(xs,ys,wbox,hbox)
 
 #create screen
 screen=pygame.display.set_mode((WIDTH,HEIGHT))
+screen2=pygame.display.set_mode((WIDTH2,HEIGHT2))
+screen3=pygame.display.set_mode((WIDTH3,HEIGHT3))
+
 pygame.display.set_caption('Circle eats Square')
 
 #define colors
@@ -113,19 +121,31 @@ sq_color=colors.get(randColor)
 MAX=10
 jumpCount=MAX
 JUMP=False
+def changebackground():
+    global SETT, MAIN
+    while check:
+        if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >350 and mouse_pos[1] <380)):
+            screen.fill(0,0,0)
+            BackButton=MENU_FONT.render("BACK",1,(255,255,255))
+            screen.blit(BackButton,(200,500))
+            if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
+                    screen.fill(background)
+                    SETT=False
+                    MAIN=True
+                    TitleMenu("MENU")
+                    MainMenu(MenuList)
+        pygame.display.update()
+        pygame.time.delay(100000)
 def TitleMenu(Message):
     text=TITLE_FNT.render(Message, 1, (255,0,0))
-    screen.fill((255,255,255))
-    #get the width  the text
-    #x value = WIDTH/2 - wText/2
+    screen.fill((0,0,0))
     xt=WIDTH/2-text.get_width()/2
     screen.blit(text,(xt,50))
-def keepscore(score):
+def timedatestuff():
     date = datetime.datetime.now()
     score = 200
     print(date.strftime('%m/%d/%Y'))
     scoreline = str(score)+"\t"+name+ "\t"+ date.strftime('%m/%d/%Y'+"\n")
-
     myfile = open('classstuffyes\scetxt.txt', "r")
     myfile.write(scoreline)
     myfile.close() 
@@ -169,6 +189,7 @@ def changeColor():
 def SettMenu(Mlist):
     global txtS
     global txtSS
+    global textlistcolors
     txtS=243
     txtSS=145
     squareSet.y=250
@@ -297,6 +318,7 @@ def playgameyuh():
             screen.blit(win, (250, 500))
             if ((mouse_pos[0]> 250 and mouse_pos[0] < 300) and (mouse_pos[1]> 250 and mouse_pos[1]< 300)):
                 MainMenu(MenuList)
+            
         #Display the screen and shapes via updating (for testing)
         pygame.display.update()
         #Add a delay so that we can see our shapes (for testing)
@@ -337,6 +359,7 @@ def instructions():
     instructions = INST_FNT.render('back', 1, (227, 111, 255))
     screen.blit(instructions,(50,650))
 while check:
+    global randdisplay
     if MAIN:
         screen.fill(background)
         TitleMenu("--main menu--")
@@ -344,7 +367,7 @@ while check:
     if SETT:
         TitleMenu("--settings--")
         SettMenu(SettingList)
-        BackButton=MENU_FONT.render("BACK (left arrow <)",1,(0,0,0))
+        BackButton=MENU_FONT.render("BACK",1,(42,82,130))
         screen.blit(BackButton,(200,500))
     if GAME:
         playgameyuh()
@@ -377,6 +400,11 @@ while check:
                 MAIN=True
                 TitleMenu("MENU")
                 MainMenu(MenuList)
+            if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >250 and mouse_pos[1] <280)):
+                screensizelist = [(700, 700), (800, 800), (900,900)]
+                randscreen = random.choice(screensizelist)
+                randdisplay=pygame.display.set_mode((randscreen))
+
         elif ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >350 and mouse_pos[1] <390)) or GAME:
             screen.fill(background)
             playgameyuh()
@@ -385,5 +413,3 @@ while check:
     
     pygame.display.update()
     pygame.time.delay(10)
-
-
