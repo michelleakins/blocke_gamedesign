@@ -14,9 +14,11 @@
 # K_w                   up square
 # K_s                   down square
 # K_SPACE               jump
+
+#C:\Users\AkinsM25\.vscode\blocke_gamedesign-1\circleeatsquaregame\yuhyuh.py
+
 #initialize pygame
 import os, random, time, pygame, math, datetime
-from turtle import update
 os.system('cls')
 name = input("what is your name?")
 #initialize pygame
@@ -421,8 +423,8 @@ while playboogaloo:
             playgameyuh()
         elif ((mouse_pos[0] > 20 and mouse_pos[0] < 80) and (mouse_pos[1]> 400 and mouse_pos[1] < 440)) or EXIT:
             check = False
-        elif ((mouse_pos[0] > 20 and mouse_pos[0] < 80) and (mouse_pos[1]> 450 and mouse_pos[1] < 480)) or EXIT:
-            scoreboard()
+        elif ((mouse_pos[0] > 50 and mouse_pos[0] < 80) and (mouse_pos[1]> 450 and mouse_pos[1] < 480)):
+            timedatestuff()
     
     pygame.display.update()
     pygame.time.delay(10)
