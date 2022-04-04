@@ -233,6 +233,7 @@ def playgameyuh():
     global ColorCheck
     global xc, yc
     global win
+    global MAIN
 
     #Create the screen
     pygame.display.set_mode((WIDTH,HEIGHT))
@@ -309,6 +310,8 @@ def playgameyuh():
         pygame.draw.rect(screen,Hit_color,hitbox)
         pygame.draw.circle(screen,c_color,(xc,yc),CRadius)
         if CRadius==30:
+            mouse_pos=pygame.mouse.get_pos()
+            print(mouse_pos)
             screen.fill(background)
             win = WIN_FNT.render("MUY BIEN! you won the game!!", 1, (149, 206, 255))
             screen.blit(win, (100, 350))
@@ -316,7 +319,10 @@ def playgameyuh():
             screen.blit(win,(150, 400))
             win = WIN_FNT.render("yes or no", 1, (149, 206, 255))
             screen.blit(win, (250, 500))
-            if ((mouse_pos[0]> 250 and mouse_pos[0] < 300) and (mouse_pos[1]> 250 and mouse_pos[1]< 300)):
+            if ((mouse_pos[0]> 250 and mouse_pos[0] < 300) and (mouse_pos[1]> 510 and mouse_pos[1]< 550)) and case.type ==pygame.MOUSEBUTTONDOWN:
+                check = False
+                screen.fill(background)
+                MAIN = True
                 MainMenu(MenuList)
             
         #Display the screen and shapes via updating (for testing)
@@ -358,7 +364,12 @@ def instructions():
     screen.blit(instructions,(75,540))
     instructions = INST_FNT.render('back', 1, (227, 111, 255))
     screen.blit(instructions,(50,650))
-while check:
+def scoreboard():
+    while check:
+        screen.fill(0,0,0)
+        pygame.time.delay(100)
+playboogaloo = True
+while playboogaloo:
     global randdisplay
     if MAIN:
         screen.fill(background)
@@ -410,6 +421,8 @@ while check:
             playgameyuh()
         elif ((mouse_pos[0] > 20 and mouse_pos[0] < 80) and (mouse_pos[1]> 400 and mouse_pos[1] < 440)) or EXIT:
             check = False
+        elif ((mouse_pos[0] > 20 and mouse_pos[0] < 80) and (mouse_pos[1]> 450 and mouse_pos[1] < 480)) or EXIT:
+            scoreboard()
     
     pygame.display.update()
     pygame.time.delay(10)
