@@ -40,7 +40,7 @@ xMs=50
 yMs=250
 wb=30
 hb=30
-
+score = 0
 #true/false for going to diff pages
 MAIN=True
 INST=False
@@ -48,7 +48,7 @@ SETT=False
 GAME=False
 LEV_I=False
 EXIT = False
-
+SCORE = False
 # menu and setting list for pages 
 MenuList=['Instructions','Settings', "Play Game","Exit",'Scoreboard']
 SettingList=['Screen Size','Font color','Background Color']
@@ -123,6 +123,32 @@ sq_color=colors.get(randColor)
 MAX=10
 jumpCount=MAX
 JUMP=False
+hi = True
+def scoreBoard():
+    global yi, temp
+    myFile=open('classstuffyes\scetxt.txt', 'r')
+    yi=150
+    stuff=myFile.readlines()
+    myFile.close()
+    stuff.sort()
+    N=len(stuff)-1
+    temp=[]
+    j=200
+    for i in range(N, -1, -1):
+        print(stuff[i])
+        text=INST_FNT.render(stuff[i],1,(255,255,255))
+        screen.blit(text,(20,j))
+        j+=50
+        pygame.display.update()
+        pygame.time.delay(10)
+def keepScore(score):
+    date=datetime.datetime.now()
+    scoreLine=str(score)+"\t"+name+"\t"+date.strftime('%m/%d/%Y'+'\n')
+    #open a file and write in it
+    # when y write it erases the prev
+    myFile=open('classstuffyes\scetxt.txt','a')
+    myFile.write(scoreLine)
+    myFile.close()
 def changebackground():
     global SETT, MAIN
     while check:
@@ -273,7 +299,7 @@ def playgameyuh():
         if keys[pygame.K_d] and square.x<=WIDTH-(wbox+move):
             square.x+=move
         #Jumping
-        if JUMP==False:
+        if not JUMP:
             if keys[pygame.K_w] and square.y>=move:
                 square.y-=move
             if keys[pygame.K_s] and square.y<=HEIGHT-(hbox+move):
@@ -368,7 +394,7 @@ def instructions():
     screen.blit(instructions,(50,650))
 def scoreboard():
     while check:
-        screen.fill(0,0,0)
+        screen.fill(255,255,0)
         pygame.time.delay(100)
 playboogaloo = True
 while playboogaloo:
@@ -384,6 +410,23 @@ while playboogaloo:
         screen.blit(BackButton,(200,500))
     if GAME:
         playgameyuh()
+    if SCORE and hi:
+        screen.fill(background)
+        TitleMenu("SCOREBOARD")
+        scoreBoard()
+        backthing=MENU_FONT.render("BACK",1,(42,82,130))
+        screen.blit(backthing,(200,500))
+        if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
+            screen.fill(background)
+            SETT=False
+            MAIN=True
+            TitleMenu("MENU")
+            MainMenu(MenuList)
+    if SCORE:
+        if keys[pygame.K_ESCAPE]:
+            SCORE=False
+            MAIN=True
+            hi=True
     for case in pygame.event.get():
         if case.type==pygame.QUIT:
             check=False
@@ -424,7 +467,17 @@ while playboogaloo:
         elif ((mouse_pos[0] > 20 and mouse_pos[0] < 80) and (mouse_pos[1]> 400 and mouse_pos[1] < 440)) or EXIT:
             check = False
         elif ((mouse_pos[0] > 50 and mouse_pos[0] < 80) and (mouse_pos[1]> 450 and mouse_pos[1] < 480)):
-            timedatestuff()
-    
+            MAIN=False
+            SCORE=True
+            backthing=MENU_FONT.render("BACK",1,(42,82,130))
+            screen.blit(backthing,(200,500))
+            if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
+                screen.fill(background)
+                SETT=False
+                MAIN=True
+                TitleMenu("MENU")
+                MainMenu(MenuList)
+      
+                
     pygame.display.update()
     pygame.time.delay(10)
