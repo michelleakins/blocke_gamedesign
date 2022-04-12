@@ -41,7 +41,6 @@ def redrawgamewindow():
 
     p.display.update()
     
-
 clock = p.time.Clock()
 
 #mainloop
