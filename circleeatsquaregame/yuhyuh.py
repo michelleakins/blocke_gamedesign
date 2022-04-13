@@ -242,6 +242,7 @@ def changeColor():
 def playgameyuh():
     global move
     global check
+    check = True
     global screen
     global square
     global hitbox
@@ -252,6 +253,7 @@ def playgameyuh():
     global jumpCount
     global JUMP
     global CRadius
+    CRadius = 5
     global MAX
     global HitLenght
     global HitWidth
@@ -261,7 +263,7 @@ def playgameyuh():
     global ColorCheck
     global xc, yc
     global win
-    global MAIN
+    global MAIN, hi, GAME
 
     #Create the screen
     pygame.display.set_mode((WIDTH,HEIGHT))
@@ -271,6 +273,10 @@ def playgameyuh():
 
     #Getting a random color:
     RandColor=random.choice(list(colors))
+
+    while RandColor == 'black':
+        RandColor=random.choice(list(colors))
+
     #Call colors to get colors for our screen and shapes
     background=colors.get('black')
     # s_color=colors.get('navy') <--- Previous square color
@@ -284,6 +290,7 @@ def playgameyuh():
 
     #make a function for our game
     while check:
+        GAME = True
         #Fill the screen and draw the shapes (for testing)
         screen.fill(background)
         #Checking for events in the pygame and allow for key inputs
@@ -349,6 +356,7 @@ def playgameyuh():
             screen.blit(win, (250, 500))
             if ((mouse_pos[0]> 250 and mouse_pos[0] < 300) and (mouse_pos[1]> 510 and mouse_pos[1]< 550)) and case.type ==pygame.MOUSEBUTTONDOWN:
                 check = False
+                GAME = False
                 screen.fill(background)
                 MAIN = True
                 MainMenu(MenuList)
@@ -398,6 +406,7 @@ def scoreboard():
         pygame.time.delay(100)
 playboogaloo = True
 while playboogaloo:
+    print(GAME)
     global randdisplay
     if MAIN:
         screen.fill(background)
