@@ -19,6 +19,7 @@
 
 #initialize pygame
 import os, random, time, pygame, math, datetime
+from tkinter import Menu
 os.system('cls')
 name = input("what is your name?")
 #initialize pygame
@@ -28,6 +29,7 @@ pygame.init()
 TITLE_FONT=pygame.font.SysFont('georgia',50) #<-- First pice of text within parenthsis is the name of the font, and the number is the height of the letters
 MENU_FONT=pygame.font.SysFont('comicsans',40)
 INSTRUCTION_FONT=pygame.font.SysFont('proxmanova',35)
+INST_FONT = pygame.font.SysFont('helvetica', 25)
 
 #scree size
 WIDTH=700
@@ -52,8 +54,13 @@ SCORE = False
 # menu and setting list for pages 
 MenuList=['Instructions','Settings', "Play Game","Exit",'Scoreboard']
 SettingList=['Screen Size','Font color','Background Color']
+messages = ["Screen size", "Background color"]
+
 check=True #for the while loop
 move=5 #pixels
+
+tempRect = pygame.Rect(0,0,5,5)
+screenSizeRectList = [tempRect]
 
 #square variables
 xs=20
@@ -126,10 +133,9 @@ JUMP=False
 hi = True
 def scoreBoard():
     global yi, temp
-    myFile=open('classstuffyes\scetxt.txt', 'r')
+    myFile=open('circleeatsquaregame\scetxt.txt', 'r')
     yi=150
     stuff=myFile.readlines()
-    myFile.close()
     stuff.sort()
     N=len(stuff)-1
     temp=[]
@@ -164,6 +170,12 @@ def changebackground():
                     MainMenu(MenuList)
         pygame.display.update()
         pygame.time.delay(100000)
+def instmenu(instyuh):
+    instyuh = "instructionss!!"
+    text=INST_FONT.render(instyuh, 1, (0,0,255))
+    screen.fill((0,0,0))
+    xt=WIDTH/2-text.get_width()/2
+    screen.blit(text,(xt,50))
 def TitleMenu(Message):
     text=TITLE_FNT.render(Message, 1, (255,0,0))
     screen.fill((0,0,0))
@@ -214,6 +226,14 @@ def changeColor():
             randColor=random.choice(list(colors))
         else:
             colorCheck=False
+
+def display_subtitle (message, y):
+    pygame.time.delay(100)
+    text = INSTRUCTION_FONT.render(message, 1, 'white')
+    x = WIDTH/2 - text.get_width()/2
+    subtitleRect = screen.blit(text, (x,y))
+    pygame.display.update(subtitleRect)
+
 def SettMenu(Mlist):
     global txtS
     global txtSS
@@ -222,8 +242,8 @@ def SettMenu(Mlist):
     txtSS=145
     squareSet.y=250
     for i in range(len(Mlist)):
-        message=Mlist[i]
-        text=INST_FNT.render(message,1,(51,131,51))
+        messages=Mlist[i]
+        text=INST_FNT.render(messages,1,(51,131,51))
         screen.blit(text,(txtSS,txtS))
         pygame.draw.rect(screen,sqM_color, squareSet )
         squareSet.y +=50
@@ -287,7 +307,7 @@ def playgameyuh():
     changeColor()
     s_color=colors.get(RandColor) #<--- Getting a random color for the square
 
-
+    # hi michelle . silent voice kid  will find u 4ever - n 
     #make a function for our game
     while check:
         GAME = True
@@ -365,41 +385,37 @@ def playgameyuh():
         pygame.display.update()
         #Add a delay so that we can see our shapes (for testing)
         pygame.time.delay(10)
+def display_text (message, y):
+    pygame.time.delay(10)
+    text = INSTRUCTION_FONT.render(message, 1, 'white')
+    x = WIDTH/2 - text.get_width()/2
+    textRect = screen.blit(text, (x,y))
+    pygame.display.update(textRect)
+    return textRect
 def instructions():
-    instructions = INST_FNT.render("so basically...", 1, (149, 206, 255))
-    screen.blit(instructions,(75,160))
-    instructions = INST_FNT.render("this is a two player game in which", 1, (149, 206, 255))
-    screen.blit(instructions,(75,180))
-    instructions = INST_FNT.render("one person is the circle and the other person is the square.", 1, (149, 206, 255))
-    screen.blit(instructions,(75,200))
-    instructions = INST_FNT.render('and the circle is trying to eat the sqaure by tagging it', 1, (149, 206, 255))
-    screen.blit(instructions,(75,220))
-    instructions = INST_FNT.render(' ', 1, (149, 206, 255))
-    screen.blit(instructions,(75,260))
-    instructions = INST_FNT.render('CONTROLS FOR SQUARE:', 1, (227, 111, 255))
-    screen.blit(instructions,(75,290))
-    instructions = INST_FNT.render('W - up', 1, (149, 206, 255))
-    screen.blit(instructions,(75,310))
-    instructions = INST_FNT.render('S - down', 1, (149, 206, 255))
-    screen.blit(instructions,(75,330))
-    instructions = INST_FNT.render('A - left', 1, (149, 206, 255))
-    screen.blit(instructions,(75,350))
-    instructions = INST_FNT.render('D - right', 1, (149, 206, 255))
-    screen.blit(instructions,(75,370))
-    instructions = INST_FNT.render('CONTROLS FOR CIRCLE:', 1, (227, 111, 255))
-    screen.blit(instructions,(75,410))
-    instructions = INST_FNT.render('up arrow (^) - up', 1, (149, 206, 255))
-    screen.blit(instructions,(75,430))
-    instructions = INST_FNT.render('down arrow - down', 1, (149, 206, 255))
-    screen.blit(instructions,(75,450))
-    instructions = INST_FNT.render('left arrow(<) - left', 1, (149, 206, 255))
-    screen.blit(instructions,(75,470))
-    instructions = INST_FNT.render('right arrow(>) - right', 1, (149, 206, 255))
-    screen.blit(instructions,(75,490))
-    instructions = INST_FNT.render('circle.... try to to get square!!', 1, (227, 111, 255))
-    screen.blit(instructions,(75,540))
-    instructions = INST_FNT.render('back', 1, (227, 111, 255))
-    screen.blit(instructions,(50,650))
+    global instructionBackRect
+    screen.fill(background)
+    instructionBackRect = pygame.Rect(5,5,5,5)
+    instmenu("Instructions")
+    instructionBackRect = display_subtitle("Back", 660)
+    display_text("so basically...", 80)
+    display_text("this is a two player game in which", 110)
+    display_text("one person is the circle and the other person is the square.", 140)
+    display_text("and the circle is trying to eat the sqaure by tagging it", 170)
+    display_text("CONTROLS FOR SQUARE:", 210)
+    display_text("W - up", 230)
+    display_text("S - down", 250)
+    display_text("A - left", 270)
+    display_text("D - right", 290)
+    display_text("CONTROLS FOR CIRCLE:", 320)
+    display_text("^ (up arrow)- up", 340)
+    display_text("down arrow - down", 360)
+    display_text("< (left arrow) = left", 380)
+    display_text("> (right arrow)= right", 400)
+    display_text("circle... try to get square", 500)
+
+    pygame.display.update()
+
 def scoreboard():
     while check:
         screen.fill(255,255,0)
@@ -414,7 +430,7 @@ while playboogaloo:
         MainMenu(MenuList)
     if SETT:
         TitleMenu("--settings--")
-        SettMenu(SettingList)
+        SettMenu(messages)
         BackButton=MENU_FONT.render("BACK",1,(42,82,130))
         screen.blit(BackButton,(200,500))
     if GAME:
@@ -425,17 +441,6 @@ while playboogaloo:
         scoreBoard()
         backthing=MENU_FONT.render("BACK",1,(42,82,130))
         screen.blit(backthing,(200,500))
-        if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
-            screen.fill(background)
-            SETT=False
-            MAIN=True
-            TitleMenu("MENU")
-            MainMenu(MenuList)
-    if SCORE:
-        if keys[pygame.K_ESCAPE]:
-            SCORE=False
-            MAIN=True
-            hi=True
     for case in pygame.event.get():
         if case.type==pygame.QUIT:
             check=False
@@ -449,7 +454,7 @@ while playboogaloo:
             TitleMenu("INSTRUCTIONS")
             INST=True
             instructions()
-            if ((mouse_pos[0]>52 and mouse_pos[0] <113) and (mouse_pos[1] >660 and mouse_pos[1]< 684)):
+            if ((mouse_pos[0]>320 and mouse_pos[0] <350) and (mouse_pos[1] >650 and mouse_pos[1]< 700)):
                 screen.fill(background)
                 INST=False
                 MAIN=True
@@ -459,23 +464,29 @@ while playboogaloo:
             MAIN=False
             screen.fill(background)
             SETT=True
+
+            if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >250 and mouse_pos[1] <280)):
+                screensizelist = [(700, 700), (800, 800), (900,900)]
+                randscreen = random.choice(screensizelist)
+                randdisplay=pygame.display.set_mode((randscreen))
+            if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >300 and mouse_pos[1] <330)):
+                randcolors={'red':[255,0,0], 'aqua':[102,153, 255],
+                'orange':[255,85,0],'purple':[48,25,52],'navy':[5,31,64],'pink':[200,3,75]}
+                randcolorsyuh = random.choice(randcolors)
+                randcolordisplay = screen.fill((randcolorsyuh))
             if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
                 screen.fill(background)
                 SETT=False
                 MAIN=True
                 TitleMenu("MENU")
                 MainMenu(MenuList)
-            if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >250 and mouse_pos[1] <280)):
-                screensizelist = [(700, 700), (800, 800), (900,900)]
-                randscreen = random.choice(screensizelist)
-                randdisplay=pygame.display.set_mode((randscreen))
 
         elif ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >350 and mouse_pos[1] <390)) or GAME:
             screen.fill(background)
             playgameyuh()
         elif ((mouse_pos[0] > 20 and mouse_pos[0] < 80) and (mouse_pos[1]> 400 and mouse_pos[1] < 440)) or EXIT:
             check = False
-        elif ((mouse_pos[0] > 50 and mouse_pos[0] < 80) and (mouse_pos[1]> 450 and mouse_pos[1] < 480)):
+        elif ((mouse_pos[0] > 50 and mouse_pos[0] < 80) and (mouse_pos[1]> 450 and mouse_pos[1] < 480)) or SCORE and hi:
             MAIN=False
             SCORE=True
             backthing=MENU_FONT.render("BACK",1,(42,82,130))
