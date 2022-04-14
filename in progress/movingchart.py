@@ -6,8 +6,8 @@ import pygame as p
 #initialize pygame
 p.init()
 
-WIDTH = 500
-HEIGHT = 500
+WIDTH = 700
+HEIGHT = 700
 win = p.display.set_mode((WIDTH,HEIGHT))
 p.display.set_caption("first game")
 
