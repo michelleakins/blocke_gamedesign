@@ -5,6 +5,7 @@
 
 #Objective of the game is for the rect to run away fom the circle, if they collide the circle etas the square,
 #circle will  get larger, and a new rect should appear somewhere on the screen
+
 # K_UP                  up circle
 # K_DOWN                down circle
 # K_RIGHT               right circle
@@ -25,6 +26,18 @@ name = input("what is your name?")
 #initialize pygame
 pygame.init()
 
+# requirements for final game
+# finish score board
+# finish setting
+# finish score system (update file)
+# finsih games!!:
+# 3 levels or 3 games 
+# each level shud be independent
+# think about scoring
+# make each games/level seerately first!
+# DOCUMENT EVERYTHING
+# source the code u copy
+
 #Declare constants, variables, list, dictionaries, any object
 TITLE_FONT=pygame.font.SysFont('georgia',50) #<-- First pice of text within parenthsis is the name of the font, and the number is the height of the letters
 MENU_FONT=pygame.font.SysFont('comicsans',40)
@@ -43,6 +56,7 @@ yMs=250
 wb=30
 hb=30
 score = 0
+
 #true/false for going to diff pages
 MAIN=True
 INST=False
@@ -51,6 +65,7 @@ GAME=False
 LEV_I=False
 EXIT = False
 SCORE = False
+
 # menu and setting list for pages 
 MenuList=['Instructions','Settings', "Play Game","Exit",'Scoreboard']
 SettingList=['Screen Size','Font color','Background Color']
@@ -67,6 +82,7 @@ xs=20
 ys=20
 wbox=30
 hbox=30
+
 #circle variables
 rad=15
 xc=random.randint(rad, WIDTH-rad)
@@ -75,7 +91,7 @@ yc=random.randint(rad, HEIGHT-rad)
 #inscribed Square:
 ibox=int(rad*math.sqrt(2))
 startpoint = (int(xc-ibox/2),int(yc-ibox/2))
-print(startpoint[0]-ibox,startpoint[1])
+# print(startpoint[0]-ibox,startpoint[1])
 insSquare=pygame.Rect(startpoint[0],startpoint[1],ibox,ibox)
 #creating the rect object
 square=pygame.Rect(xs,ys,wbox,hbox)
@@ -89,11 +105,11 @@ pygame.display.set_caption('Circle eats Square')
 
 #define colors
 colors={'white':[255,255,255], 'red':[255,0,0], 'aqua':[102,153, 255],
-'orange':[255,85,0],'purple':[48,25,52],'navy':[5,31,64],'pink':[200,3,75]}
+'orange':[255,85,0],'purple':[48,25,52],'navy':[5,31,64],'pink':[200,3,75], 'black':[0,0,0]}
 background_black = {'black':[0,0,0]}
+background=colors.get('black')
 
 #Get colors
-background= background_black.get('black')
 randColor=''
 cr_color=colors.get('aqua')
 sqM_color=colors.get('purple')
@@ -141,7 +157,7 @@ def scoreBoard():
     temp=[]
     j=200
     for i in range(N, -1, -1):
-        print(stuff[i])
+        # print(stuff[i])
         text=INST_FNT.render(stuff[i],1,(255,255,255))
         screen.blit(text,(20,j))
         j+=50
@@ -155,21 +171,6 @@ def keepScore(score):
     myFile=open('classstuffyes\scetxt.txt','a')
     myFile.write(scoreLine)
     myFile.close()
-def changebackground():
-    global SETT, MAIN
-    while check:
-        if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >350 and mouse_pos[1] <380)):
-            screen.fill(0,0,0)
-            BackButton=MENU_FONT.render("BACK",1,(255,255,255))
-            screen.blit(BackButton,(200,500))
-            if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
-                    screen.fill(background)
-                    SETT=False
-                    MAIN=True
-                    TitleMenu("MENU")
-                    MainMenu(MenuList)
-        pygame.display.update()
-        pygame.time.delay(100000)
 def instmenu(instyuh):
     instyuh = "instructionss!!"
     text=INST_FONT.render(instyuh, 1, (0,0,255))
@@ -184,7 +185,7 @@ def TitleMenu(Message):
 def timedatestuff():
     date = datetime.datetime.now()
     score = 200
-    print(date.strftime('%m/%d/%Y'))
+    # print(date.strftime('%m/%d/%Y'))
     scoreline = str(score)+"\t"+name+ "\t"+ date.strftime('%m/%d/%Y'+"\n")
     myfile = open('classstuffyes\scetxt.txt', "r")
     myfile.write(scoreline)
@@ -221,19 +222,17 @@ def changeColor():
     while colorCheck:
         randColor=random.choice(list(colors))
         if colors.get(randColor)==background:
-            print(randColor)
-            print(background)
+            # print(randColor)
+            # print(background)
             randColor=random.choice(list(colors))
         else:
             colorCheck=False
-
 def display_subtitle (message, y):
     pygame.time.delay(100)
     text = INSTRUCTION_FONT.render(message, 1, 'white')
     x = WIDTH/2 - text.get_width()/2
     subtitleRect = screen.blit(text, (x,y))
     pygame.display.update(subtitleRect)
-
 def SettMenu(Mlist):
     global txtS
     global txtSS
@@ -248,17 +247,6 @@ def SettMenu(Mlist):
         pygame.draw.rect(screen,sqM_color, squareSet )
         squareSet.y +=50
         txtS+=50
-def changeColor():
-        global randColor
-        colorCheck=True
-        while colorCheck:
-            randColor=random.choice(list(colors))
-            if colors.get(randColor)==background:
-                print(randColor)
-                print(background)
-                randColor=random.choice(list(colors))
-            else:
-                colorCheck=False
 def playgameyuh():
     global move
     global check
@@ -290,7 +278,6 @@ def playgameyuh():
 
     #Define our colors in a dictionary
     colors={'white':[255,255,255], 'red':[255,0,0], 'orange':[255,85,0], 'purple':[48,25,52,],'pink': [200,3,75], 'black':[0,0,0], 'navy':[5,31,64]}
-
     #Getting a random color:
     RandColor=random.choice(list(colors))
 
@@ -366,7 +353,7 @@ def playgameyuh():
         pygame.draw.circle(screen,c_color,(xc,yc),CRadius)
         if CRadius==30:
             mouse_pos=pygame.mouse.get_pos()
-            print(mouse_pos)
+            # print(mouse_pos)
             screen.fill(background)
             win = WIN_FNT.render("MUY BIEN! you won the game!!", 1, (149, 206, 255))
             screen.blit(win, (100, 350))
@@ -374,7 +361,7 @@ def playgameyuh():
             screen.blit(win,(150, 400))
             win = WIN_FNT.render("yes or no", 1, (149, 206, 255))
             screen.blit(win, (250, 500))
-            if ((mouse_pos[0]> 250 and mouse_pos[0] < 300) and (mouse_pos[1]> 510 and mouse_pos[1]< 550)) and case.type ==pygame.MOUSEBUTTONDOWN:
+            if ((xm> 250 and xm < 300) and (ym> 510 and ym< 550)) and case.type ==pygame.MOUSEBUTTONDOWN:
                 check = False
                 GAME = False
                 screen.fill(background)
@@ -415,89 +402,104 @@ def instructions():
     display_text("circle... try to get square", 500)
 
     pygame.display.update()
-
 def scoreboard():
     while check:
         screen.fill(255,255,0)
         pygame.time.delay(100)
 playboogaloo = True
+f_color = True
+xm = 0
+ym = 0
 while playboogaloo:
-    print(GAME)
+    # print(GAME)
     global randdisplay
+    for case in pygame.event.get():
+        if case.type==pygame.QUIT:
+            playboogaloo=False
+    keys=pygame.key.get_pressed() #this returns a list
+    if case.type ==pygame.MOUSEBUTTONDOWN:
+        mouse_pos=pygame.mouse.get_pos()
+        xm = mouse_pos[0]
+        ym = mouse_pos[1]
+        
     if MAIN:
         screen.fill(background)
         TitleMenu("--main menu--")
         MainMenu(MenuList)
     if SETT:
+        screen.fill(background)
         TitleMenu("--settings--")
         SettMenu(messages)
         BackButton=MENU_FONT.render("BACK",1,(42,82,130))
         screen.blit(BackButton,(200,500))
-    if GAME:
-        playgameyuh()
     if SCORE and hi:
         screen.fill(background)
         TitleMenu("SCOREBOARD")
         scoreBoard()
         backthing=MENU_FONT.render("BACK",1,(42,82,130))
         screen.blit(backthing,(200,500))
-    for case in pygame.event.get():
-        if case.type==pygame.QUIT:
-            check=False
-    keys=pygame.key.get_pressed() #this returns a list
-    if case.type ==pygame.MOUSEBUTTONDOWN:
-        mouse_pos=pygame.mouse.get_pos()
-        print(mouse_pos)
-        if ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >250 and mouse_pos[1] <290))or INST :
-            MAIN=False
-            screen.fill(background)
-            TitleMenu("INSTRUCTIONS")
-            INST=True
-            instructions()
-            if ((mouse_pos[0]>320 and mouse_pos[0] <350) and (mouse_pos[1] >650 and mouse_pos[1]< 700)):
-                screen.fill(background)
-                INST=False
-                MAIN=True
-                TitleMenu("MENU")
-                MainMenu(MenuList)
-        elif ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >300 and mouse_pos[1] <340)) or SETT:
-            MAIN=False
-            screen.fill(background)
-            SETT=True
 
-            if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >250 and mouse_pos[1] <280)):
-                screensizelist = [(700, 700), (800, 800), (900,900)]
-                randscreen = random.choice(screensizelist)
-                randdisplay=pygame.display.set_mode((randscreen))
-            if ((mouse_pos[0] >100 and mouse_pos[0] <130) and (mouse_pos[1] >300 and mouse_pos[1] <330)):
-                randcolors={'red':[255,0,0], 'aqua':[102,153, 255],
-                'orange':[255,85,0],'purple':[48,25,52],'navy':[5,31,64],'pink':[200,3,75]}
-                randcolorsyuh = random.choice(randcolors)
-                randcolordisplay = screen.fill((randcolorsyuh))
-            if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
-                screen.fill(background)
-                SETT=False
-                MAIN=True
-                TitleMenu("MENU")
-                MainMenu(MenuList)
-
-        elif ((mouse_pos[0] >20 and mouse_pos[0] <80) and (mouse_pos[1] >350 and mouse_pos[1] <390)) or GAME:
+    if ((xm >20 and xm <80) and (ym >250 and ym <290))or INST :
+        MAIN=False
+        screen.fill(background)
+        TitleMenu("INSTRUCTIONS")
+        INST=True
+        instructions()
+        if ((xm>320 and xm <350) and (ym >650 and ym< 700)):
             screen.fill(background)
-            playgameyuh()
-        elif ((mouse_pos[0] > 20 and mouse_pos[0] < 80) and (mouse_pos[1]> 400 and mouse_pos[1] < 440)) or EXIT:
-            check = False
-        elif ((mouse_pos[0] > 50 and mouse_pos[0] < 80) and (mouse_pos[1]> 450 and mouse_pos[1] < 480)) or SCORE and hi:
-            MAIN=False
-            SCORE=True
-            backthing=MENU_FONT.render("BACK",1,(42,82,130))
-            screen.blit(backthing,(200,500))
-            if ((mouse_pos[0] >200 and mouse_pos[0] <540) and (mouse_pos[1] >500 and mouse_pos[1] <540)):
-                screen.fill(background)
-                SETT=False
-                MAIN=True
-                TitleMenu("MENU")
-                MainMenu(MenuList)
-      
+            INST=False
+            MAIN=True
+            TitleMenu("MENU")
+            MainMenu(MenuList)
+    if ((xm >20 and xm <80) and (ym >300 and ym <340)) and MAIN:
+        print("joea mama")
+        MAIN=False
+        screen.fill(background)
+        SETT=True
+        pygame.display.update()
+    if ((xm >100 and xm <130) and (ym >250 and ym <280)) and SETT:
+        xm = 0
+        ym = 0
+        screensizelist = [(700, 700), (800, 800), (900,900)]
+        randscreen = random.choice(screensizelist)
+        randdisplay=pygame.display.set_mode((randscreen))
+
+    if ((xm >100 and xm <130) and (ym >300 and ym <330)) and SETT and f_color:
+        f_color = False
+        xm = 0
+        ym = 0
+        # if case.type ==pygame.MOUSEBUTTONUP:
+        #     mouse_pos=pygame.mouse.get_pos()
+        #     print(mouse_pos)
+        randcolors={'red':[255,0,0], 'aqua':[102,153, 255],
+        'orange':[255,85,0],'purple':[48,25,52],'navy':[5,31,64],'pink':[200,3,75]}
+        new_list = list(randcolors.keys())
+        randcol = random.choice(new_list)
+        print(randcol)
+        background = randcolors.get(randcol)
+
+    if ((xm >200 and xm <540) and (ym >500 and ym <540)) and SETT:
+        screen.fill(background)
+        SETT=False
+        MAIN=True
+        TitleMenu("MENU")
+        MainMenu(MenuList)
+    if ((xm >20 and xm <80) and (ym >350 and ym <390)) and MAIN:
+        screen.fill(background)
+        playgameyuh()
+    if ((xm > 20 and xm < 80) and (ym> 400 and ym < 440)) or EXIT:
+        check = False
+    if ((xm > 50 and xm < 80) and (ym> 450 and ym < 480)) and MAIN:
+        MAIN=False
+        SCORE=True
+        backthing=MENU_FONT.render("BACK",1,(42,82,130))
+        screen.blit(backthing,(200,500))
+        if ((xm >200 and xm <540) and (ym >500 and ym <540)):
+            screen.fill(background)
+            SETT=False
+            MAIN=True
+            TitleMenu("MENU")
+            MainMenu(MenuList)
                 
     pygame.display.update()
     pygame.time.delay(10)
