@@ -20,6 +20,7 @@
 
 #initialize pygame
 import os, random, time, pygame, math, datetime
+from pickle import TRUE
 from tkinter import Menu
 os.system('cls')
 name = input("what is your name?")
@@ -28,7 +29,7 @@ pygame.init()
 
 #code I used: https://www.youtube.com/watch?v=ERcKxhAvCDI
 
- # requirements for final game
+# requirements for final game
 # finish score board
 # finish setting
 # finish score system (update file)
@@ -160,17 +161,12 @@ def scoreBoard():
     myFile=open('circleeatsquaregame\scetxt.txt', 'r')
     yi=150
     stuff=myFile.readlines()
-    stuff.sort()
-    N=len(stuff)-1
-    temp=[]
+    stuff.sort(reverse = True)
     j=200
-    for i in range(N, -1, -1):
-        # print(stuff[i])
-        text=INST_FNT.render(stuff[i],1,(255,255,255))
-        screen.blit(text,(20,j))
-        j+=50
+    for line in stuff:
+        text = INST_FONT.render("SCOREBOARD", 1, (255,255,255))
         pygame.display.update()
-        pygame.time.delay(10)
+        pygame.delay(2)
 def keepScore(score):
     date=datetime.datetime.now()
     scoreLine=str(score)+"\t"+name+"\t"+date.strftime('%m/%d/%Y'+'\n')
@@ -224,7 +220,7 @@ def MainMenu(Mlist):
         txty+=50
     pygame.display.update()
     pygame.time.delay(10)
-def changeColor():
+# def changeColor():
     global randColor
     colorCheck=True
     while colorCheck:
@@ -264,21 +260,16 @@ def timer():
     print(gameTime)
 count = 0
 def playgameyuh1():
-    global gameover
-    pygame.init()
-
+    global gameover, xm, ym
     FPS = 30
     framesPerSec = pygame.time.Clock()
-
     black = (0,0,0)
     red = (255, 0, 0)
-
     window = pygame.display.set_mode((600,700))
     window.fill(black)
-    pygame.display.set_caption("shoot the rock")
+    pygame.display.set_caption("Asteroid Avoid")
 
     speed = 10
-
     SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
     # from pygame import mixer
@@ -321,11 +312,11 @@ def playgameyuh1():
         
             if self.rect.left > 0:
                 if pressedKeys[pygame.K_LEFT]:
-                    self.rect.move_ip(-5, 0)
+                    self.rect.move_ip(-10, 0)
 
             if self.rect.right < SCREEN_WIDTH:
                 if pressedKeys[pygame.K_RIGHT]:
-                    self.rect.move_ip(5, 0)
+                    self.rect.move_ip(10, 0)
 
 
 
@@ -339,7 +330,7 @@ def playgameyuh1():
 
         def fire(self, player):
             pressed_keys = pygame.key.get_pressed()
-            if pressed_keys[pygame.K_SPACE] and self.fired == False:
+            if pressed_keys [pygame.K_SPACE] and self.fired == False:
                 self.rect = self.surf.get_rect(center = (player.rect.midtop))
                 self.fired = True
 
@@ -358,7 +349,9 @@ def playgameyuh1():
 
     class Background():
         def __init__(self):
-            self.backgroundImage = pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            BGM= pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            # pygame. transform. scale(image, DEFAULT_IMAGE_SIZE)
+            self.backgroundImage = pygame.transform.scale(BGM, (600, 700))
             self.rectBGimage = self.backgroundImage.get_rect()
 
             self.bgY1 = 0
@@ -405,18 +398,26 @@ def playgameyuh1():
     bullets.add(B1)
 
     font = pygame.font.SysFont("Verdana", 40, (255,255,255))
-    gameover=MENU_FONT.render("would you like",1,(42,82,130))
-    screen.blit(gameover,(200,500))
-    gameover = MENU_FONT.render("to play again", 1, (0,0,0))
-    screen.blit(gameover,(200,520))
-
+    MsGameover=MENU_FONT.render("would you like to play again?",1,(42,82,130))
+    screen.blit(MsGameover,(200,500))
+    yesorno= MENU_FONT.render("yes or no?", 1, (0,0,0))
+    screen.blit(yesorno,(200,520))
 
     screen
     score = 0
     destroyed = False
+    gameover = False
     
-    while True:
-        timer()
+    def gameoverFunc():
+        global gameover, check
+        window.fill(red)
+        window.blit(MsGameover, (20,300))
+        window.blit(yesorno, (50,400))
+       
+        
+        
+    check=True
+    while check:
         scoreRender = font.render("Score: " +str(score), True, red)
         background.update()
         background.render()
@@ -428,14 +429,12 @@ def playgameyuh1():
 
             if event.type == INCREASE_SPEED:
                 speed+= 0.5
-
-        if pygame.sprite.spritecollideany(P1, enemyGroup):
-            window.fill(red)
-            window.blit(gameover, (100,300))
-            pygame.display.update()
-            time.sleep(2)
-            pygame.quit()
-
+            if case.type ==pygame.MOUSEBUTTONDOWN:
+                mouse_pos=pygame.mouse.get_pos()
+                xm = mouse_pos[0]
+                ym = mouse_pos[1]
+        
+        print(xm,ym)   
         for entity in bullets:
             entity.fire(P1)
         
@@ -452,9 +451,23 @@ def playgameyuh1():
             score = enemy.move(score, destroyed)
             enemy.draw(window)
 
+       
+        if pygame.sprite.spritecollideany(P1, enemyGroup):
+            gameover=True
+        if gameover:
+            gameoverFunc()
+            mouse_pos=pygame.mouse.get_pos()
+            xm = mouse_pos[0]
+            ym = mouse_pos[1]
+            print(xm,ym)
+            if (xm>50 and xm <193 and ym >350):
+                gameover=False
+            if (xm>200 and xm <290 and ym >350):
+                check = False
+                gameover =False
+            pygame.display.update()
         P1.update()
         P1.draw(window)
-
         pygame.display.update()
         framesPerSec.tick(FPS)
 def playgameyuh2():
@@ -552,7 +565,9 @@ def playgameyuh2():
 
     class Background():
         def __init__(self):
-            self.backgroundImage = pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            BGM= pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            # pygame. transform. scale(image, DEFAULT_IMAGE_SIZE)
+            self.backgroundImage = pygame.transform.scale(BGM, (600, 700))
             self.rectBGimage = self.backgroundImage.get_rect()
 
             self.bgY1 = 0
@@ -599,10 +614,10 @@ def playgameyuh2():
     bullets.add(B1)
 
     font = pygame.font.SysFont("Verdana", 40, (255,255,255))
-    gameover=MENU_FONT.render("would you like",1,(42,82,130))
+    gameover=MENU_FONT.render("would you like to play again?",1,(42,82,130))
     screen.blit(gameover,(200,500))
-    gameover = MENU_FONT.render("to play again", 1, (0,0,0))
-    screen.blit(gameover,(200,520))
+    yesorno= MENU_FONT.render("yes or no?", 1, (0,0,0))
+    screen.blit(yesorno,(200,520))
 
 
     screen
@@ -624,10 +639,11 @@ def playgameyuh2():
 
         if pygame.sprite.spritecollideany(P1, enemyGroup):
             window.fill(red)
-            window.blit(gameover, (100,300))
+            window.blit(gameover, (20,300))
+            window.blit(yesorno, (50,400))
+
             pygame.display.update()
             time.sleep(2)
-            pygame.quit()
 
         for entity in bullets:
             entity.fire(P1)
@@ -745,7 +761,9 @@ def playgameyuh3():
 
     class Background():
         def __init__(self):
-            self.backgroundImage = pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            BGM= pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            # pygame. transform. scale(image, DEFAULT_IMAGE_SIZE)
+            self.backgroundImage = pygame.transform.scale(BGM, (600, 700))
             self.rectBGimage = self.backgroundImage.get_rect()
 
             self.bgY1 = 0
@@ -792,10 +810,10 @@ def playgameyuh3():
     bullets.add(B1)
 
     font = pygame.font.SysFont("Verdana", 40, (255,255,255))
-    gameover=MENU_FONT.render("would you like",1,(42,82,130))
+    gameover=MENU_FONT.render("would you like to play again?",1,(42,82,130))
     screen.blit(gameover,(200,500))
-    gameover = MENU_FONT.render("to play again", 1, (0,0,0))
-    screen.blit(gameover,(200,520))
+    yesorno= MENU_FONT.render("yes or no?", 1, (0,0,0))
+    screen.blit(yesorno,(200,520))
 
 
     screen
@@ -817,10 +835,10 @@ def playgameyuh3():
 
         if pygame.sprite.spritecollideany(P1, enemyGroup):
             window.fill(red)
-            window.blit(gameover, (100,300))
+            window.blit(gameover, (20,300))
+            window.blit(yesorno, (50,400))
             pygame.display.update()
             time.sleep(2)
-            pygame.quit()
 
         for entity in bullets:
             entity.fire(P1)
@@ -882,6 +900,7 @@ f_color = True
 xm = 0
 ym = 0
 while playboogaloo:
+
     # print(GAME)
     global randdisplay
     for case in pygame.event.get():
@@ -958,6 +977,7 @@ while playboogaloo:
     if ((xm >20 and xm <80) and (ym >350 and ym <390)) and MAIN:
         # screen.fill(background)
         playgameyuh1()
+                
     if ((xm >20 and xm <80) and (ym >390 and ym <440)) and MAIN:
         screen.fill(background)
         playgameyuh2()
