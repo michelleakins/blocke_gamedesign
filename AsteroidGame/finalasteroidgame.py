@@ -460,32 +460,31 @@ def playgameyuh1():
             xm = mouse_pos[0]
             ym = mouse_pos[1]
             print(xm,ym)
-            if (xm>50 and xm <193 and ym >350):
-                gameover=False
-            if (xm>200 and xm <290 and ym >350):
-                check = False
-                gameover =False
+            if case.type ==pygame.MOUSEBUTTONDOWN:
+                mouse_pos=pygame.mouse.get_pos()
+                xm = mouse_pos[0]
+                ym = mouse_pos[1]
+                if (xm>50 and xm <110) and (ym >420 and ym <450):
+                    gameover=False
+                if (xm>180 and xm <220) and (ym >420 and ym <450):
+                    check = False
+                    gameover =False
             pygame.display.update()
         P1.update()
         P1.draw(window)
         pygame.display.update()
         framesPerSec.tick(FPS)
 def playgameyuh2():
-    global gameover
-    pygame.init()
-
+    global gameover, xm, ym
     FPS = 30
     framesPerSec = pygame.time.Clock()
-
     black = (0,0,0)
     red = (255, 0, 0)
-
     window = pygame.display.set_mode((600,700))
     window.fill(black)
     pygame.display.set_caption("Asteroid Avoid")
 
     speed = 15
-
     SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
     # from pygame import mixer
@@ -614,17 +613,26 @@ def playgameyuh2():
     bullets.add(B1)
 
     font = pygame.font.SysFont("Verdana", 40, (255,255,255))
-    gameover=MENU_FONT.render("would you like to play again?",1,(42,82,130))
-    screen.blit(gameover,(200,500))
+    MsGameover=MENU_FONT.render("would you like to play again?",1,(42,82,130))
+    screen.blit(MsGameover,(200,500))
     yesorno= MENU_FONT.render("yes or no?", 1, (0,0,0))
     screen.blit(yesorno,(200,520))
-
 
     screen
     score = 0
     destroyed = False
-
-    while True:
+    gameover = False
+    
+    def gameoverFunc():
+        global gameover, check
+        window.fill(red)
+        window.blit(MsGameover, (20,300))
+        window.blit(yesorno, (50,400))
+       
+        
+        
+    check=True
+    while check:
         scoreRender = font.render("Score: " +str(score), True, red)
         background.update()
         background.render()
@@ -636,15 +644,12 @@ def playgameyuh2():
 
             if event.type == INCREASE_SPEED:
                 speed+= 0.5
-
-        if pygame.sprite.spritecollideany(P1, enemyGroup):
-            window.fill(red)
-            window.blit(gameover, (20,300))
-            window.blit(yesorno, (50,400))
-
-            pygame.display.update()
-            time.sleep(2)
-
+            if case.type ==pygame.MOUSEBUTTONDOWN:
+                mouse_pos=pygame.mouse.get_pos()
+                xm = mouse_pos[0]
+                ym = mouse_pos[1]
+        
+        print(xm,ym)   
         for entity in bullets:
             entity.fire(P1)
         
@@ -661,27 +666,40 @@ def playgameyuh2():
             score = enemy.move(score, destroyed)
             enemy.draw(window)
 
+       
+        if pygame.sprite.spritecollideany(P1, enemyGroup):
+            gameover=True
+        if gameover:
+            gameoverFunc()
+            mouse_pos=pygame.mouse.get_pos()
+            xm = mouse_pos[0]
+            ym = mouse_pos[1]
+            print(xm,ym)
+            if case.type ==pygame.MOUSEBUTTONDOWN:
+                mouse_pos=pygame.mouse.get_pos()
+                xm = mouse_pos[0]
+                ym = mouse_pos[1]
+                if (xm>50 and xm <110) and (ym >420 and ym <450):
+                    gameover=False
+                if (xm>180 and xm <220) and (ym >420 and ym <450):
+                    check = False
+                    gameover =False
+            pygame.display.update()
         P1.update()
         P1.draw(window)
-
         pygame.display.update()
         framesPerSec.tick(FPS)
 def playgameyuh3():
-    global gameover
-    pygame.init()
-
+    global gameover, xm, ym
     FPS = 30
     framesPerSec = pygame.time.Clock()
-
     black = (0,0,0)
     red = (255, 0, 0)
-
     window = pygame.display.set_mode((600,700))
     window.fill(black)
     pygame.display.set_caption("Asteroid Avoid")
 
     speed = 20
-
     SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
     # from pygame import mixer
@@ -724,11 +742,11 @@ def playgameyuh3():
         
             if self.rect.left > 0:
                 if pressedKeys[pygame.K_LEFT]:
-                    self.rect.move_ip(-15, 0)
+                    self.rect.move_ip(-10, 0)
 
             if self.rect.right < SCREEN_WIDTH:
                 if pressedKeys[pygame.K_RIGHT]:
-                    self.rect.move_ip(15, 0)
+                    self.rect.move_ip(10, 0)
 
 
 
@@ -810,17 +828,26 @@ def playgameyuh3():
     bullets.add(B1)
 
     font = pygame.font.SysFont("Verdana", 40, (255,255,255))
-    gameover=MENU_FONT.render("would you like to play again?",1,(42,82,130))
-    screen.blit(gameover,(200,500))
+    MsGameover=MENU_FONT.render("would you like to play again?",1,(42,82,130))
+    screen.blit(MsGameover,(200,500))
     yesorno= MENU_FONT.render("yes or no?", 1, (0,0,0))
     screen.blit(yesorno,(200,520))
-
 
     screen
     score = 0
     destroyed = False
-
-    while True:
+    gameover = False
+    
+    def gameoverFunc():
+        global gameover, check
+        window.fill(red)
+        window.blit(MsGameover, (20,300))
+        window.blit(yesorno, (50,400))
+       
+        
+        
+    check=True
+    while check:
         scoreRender = font.render("Score: " +str(score), True, red)
         background.update()
         background.render()
@@ -832,14 +859,12 @@ def playgameyuh3():
 
             if event.type == INCREASE_SPEED:
                 speed+= 0.5
-
-        if pygame.sprite.spritecollideany(P1, enemyGroup):
-            window.fill(red)
-            window.blit(gameover, (20,300))
-            window.blit(yesorno, (50,400))
-            pygame.display.update()
-            time.sleep(2)
-
+            if case.type ==pygame.MOUSEBUTTONDOWN:
+                mouse_pos=pygame.mouse.get_pos()
+                xm = mouse_pos[0]
+                ym = mouse_pos[1]
+        
+        print(xm,ym)   
         for entity in bullets:
             entity.fire(P1)
         
@@ -856,9 +881,27 @@ def playgameyuh3():
             score = enemy.move(score, destroyed)
             enemy.draw(window)
 
+       
+        if pygame.sprite.spritecollideany(P1, enemyGroup):
+            gameover=True
+        if gameover:
+            gameoverFunc()
+            mouse_pos=pygame.mouse.get_pos()
+            xm = mouse_pos[0]
+            ym = mouse_pos[1]
+            print(xm,ym)
+            if case.type ==pygame.MOUSEBUTTONDOWN:
+                mouse_pos=pygame.mouse.get_pos()
+                xm = mouse_pos[0]
+                ym = mouse_pos[1]
+                if (xm>50 and xm <110) and (ym >420 and ym <450):
+                    gameover=False
+                if (xm>180 and xm <220) and (ym >420 and ym <450):
+                    check = False
+                    gameover =False
+            pygame.display.update()
         P1.update()
         P1.draw(window)
-
         pygame.display.update()
         framesPerSec.tick(FPS)
 def display_text (message, y):
