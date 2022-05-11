@@ -95,7 +95,7 @@ class Bullet(pygame.sprite.Sprite):
 
 class Background():
     def __init__(self):
-        self.backgroundImage = pygame.image.load("AsteroidGame\\backgroundImage2.png")
+        self.backgroundImage = pygame.image.load("AsteroidGame\\backgroundImage3.png")
         self.rectBGimage = self.backgroundImage.get_rect()
 
         self.bgY1 = 0
