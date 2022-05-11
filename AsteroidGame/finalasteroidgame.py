@@ -349,7 +349,7 @@ def playgameyuh1():
 
     class Background():
         def __init__(self):
-            BGM= pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            BGM= pygame.image.load("AsteroidGame\spacebkgrnd.png")
             # pygame. transform. scale(image, DEFAULT_IMAGE_SIZE)
             self.backgroundImage = pygame.transform.scale(BGM, (600, 700))
             self.rectBGimage = self.backgroundImage.get_rect()
@@ -564,7 +564,7 @@ def playgameyuh2():
 
     class Background():
         def __init__(self):
-            BGM= pygame.image.load("AsteroidGame\\backgroundImage2.png")
+            BGM= pygame.image.load("AsteroidGame\\backgroundImage3.png")
             # pygame. transform. scale(image, DEFAULT_IMAGE_SIZE)
             self.backgroundImage = pygame.transform.scale(BGM, (600, 700))
             self.rectBGimage = self.backgroundImage.get_rect()
@@ -935,9 +935,10 @@ def instructions():
 
     pygame.display.update()
 def scoreboard():
-    while check:
-        screen.fill(255,255,0)
-        pygame.time.delay(100)
+    screen.fill(background)
+    TitleMenu("SCOREBOARD")
+    backthing=MENU_FONT.render("BACK",1,(42,82,130))
+    screen.blit(backthing,(200,500))
 playboogaloo = True
 f_color = True
 xm = 0
@@ -968,7 +969,7 @@ while playboogaloo:
     if SCORE and hi:
         screen.fill(background)
         TitleMenu("SCOREBOARD")
-        scoreBoard()
+        scoreboard()
         backthing=MENU_FONT.render("BACK",1,(42,82,130))
         screen.blit(backthing,(200,500))
 
@@ -1001,15 +1002,13 @@ while playboogaloo:
         f_color = False
         xm = 0
         ym = 0
-        # if case.type ==pygame.MOUSEBUTTONUP:
-        #     mouse_pos=pygame.mouse.get_pos()
-        #     print(mouse_pos)
-        randcolors={'red':[255,0,0], 'aqua':[102,153, 255],
-        'orange':[255,85,0],'purple':[48,25,52],'navy':[5,31,64],'pink':[200,3,75]}
-        new_list = list(randcolors.keys())
+        blackandwhite = {'white':[255,255,255], 'black':[0,0, 0]}
+        new_list = list(blackandwhite.keys())
+
         randcol = random.choice(new_list)
         print(randcol)
-        background = randcolors.get(randcol)
+        backgroundmenu = blackandwhite.get(randcol)
+        screen.fill(backgroundmenu)
 
     if ((xm >200 and xm <540) and (ym >500 and ym <540)) and SETT:
         screen.fill(background)
@@ -1019,8 +1018,7 @@ while playboogaloo:
         MainMenu(MenuList)
     if ((xm >20 and xm <80) and (ym >350 and ym <390)) and MAIN:
         # screen.fill(background)
-        playgameyuh1()
-                
+        playgameyuh1()  
     if ((xm >20 and xm <80) and (ym >390 and ym <440)) and MAIN:
         screen.fill(background)
         playgameyuh2()
@@ -1030,17 +1028,17 @@ while playboogaloo:
     if ((xm > 20 and xm < 80) and (ym> 490 and ym < 540)) and MAIN:
         quit()
     if ((xm > 50 and xm < 80) and (ym> 540 and ym < 590)) and MAIN:
-        scoreBoard()
+        scoreboard()
         # MAIN=False
         # SCORE=True
         # backthing=MENU_FONT.render("BACK",1,(42,82,130))
         # screen.blit(backthing,(200,500))
-        # if ((xm >200 and xm <540) and (ym >500 and ym <540)):
-        #     screen.fill(background)
-        #     SETT=False
-        #     MAIN=True
-        #     TitleMenu("MENU")
-        #     MainMenu(MenuList)
+        if ((xm >200 and xm <540) and (ym >500 and ym <540)):
+            screen.fill(background)
+            SETT=False
+            MAIN=True
+            TitleMenu("MENU")
+            MainMenu(MenuList)
                 
     pygame.display.update()
     pygame.time.delay(10)
