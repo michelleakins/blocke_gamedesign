@@ -104,7 +104,7 @@ screen=pygame.display.set_mode((WIDTH,HEIGHT))
 screen2=pygame.display.set_mode((WIDTH2,HEIGHT2))
 screen3=pygame.display.set_mode((WIDTH3,HEIGHT3))
 
-pygame.display.set_caption('Circle eats Square')
+pygame.display.set_caption('main menu')
 
 #define colors
 colors={'white':[255,255,255], 'red':[255,0,0], 'aqua':[102,153, 255],
@@ -267,7 +267,7 @@ def playgameyuh1():
     red = (255, 0, 0)
     window = pygame.display.set_mode((600,700))
     window.fill(black)
-    pygame.display.set_caption("Asteroid Avoid")
+    pygame.display.set_caption("shoot the rock aha ha")
 
     speed = 10
     SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
@@ -482,7 +482,7 @@ def playgameyuh2():
     red = (255, 0, 0)
     window = pygame.display.set_mode((600,700))
     window.fill(black)
-    pygame.display.set_caption("Asteroid Avoid")
+    pygame.display.set_caption("shoot the rock aha ha")
 
     speed = 15
     SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
@@ -697,7 +697,7 @@ def playgameyuh3():
     red = (255, 0, 0)
     window = pygame.display.set_mode((600,700))
     window.fill(black)
-    pygame.display.set_caption("Asteroid Avoid")
+    pygame.display.set_caption("shoot the rock aha ha")
 
     speed = 20
     SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
@@ -939,12 +939,21 @@ def scoreboard():
     TitleMenu("SCOREBOARD")
     backthing=MENU_FONT.render("BACK",1,(42,82,130))
     screen.blit(backthing,(200,500))
+    backthing=MENU_FONT.render("high score: 85",1,(42,82,130))
+    screen.blit(backthing,(200,250))
+    pressed_keys = pygame.key.get_pressed()
+    if pressed_keys [pygame.K_ESCAPE]:
+        screen.fill(background)
+        TitleMenu("MENU")
+        MainMenu(MenuList)
+                
 playboogaloo = True
 f_color = True
 xm = 0
 ym = 0
 while playboogaloo:
 
+    
     # print(GAME)
     global randdisplay
     for case in pygame.event.get():
@@ -1014,8 +1023,6 @@ while playboogaloo:
         screen.fill(background)
         SETT=False
         MAIN=True
-        TitleMenu("MENU")
-        MainMenu(MenuList)
     if ((xm >20 and xm <80) and (ym >350 and ym <390)) and MAIN:
         # screen.fill(background)
         playgameyuh1()  
@@ -1028,17 +1035,15 @@ while playboogaloo:
     if ((xm > 20 and xm < 80) and (ym> 490 and ym < 540)) and MAIN:
         quit()
     if ((xm > 50 and xm < 80) and (ym> 540 and ym < 590)) and MAIN:
-        scoreboard()
-        # MAIN=False
-        # SCORE=True
+        MAIN=False
+        SCORE=True
         # backthing=MENU_FONT.render("BACK",1,(42,82,130))
         # screen.blit(backthing,(200,500))
-        if ((xm >200 and xm <540) and (ym >500 and ym <540)):
-            screen.fill(background)
-            SETT=False
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys [pygame.K_ESCAPE] :
+            SCORE=False
             MAIN=True
-            TitleMenu("MENU")
-            MainMenu(MenuList)
+        
                 
     pygame.display.update()
     pygame.time.delay(10)
