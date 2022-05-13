@@ -70,7 +70,7 @@ EXIT = False
 SCORE = False
 
 # menu and setting list for pages 
-MenuList=['Instructions','Settings', "Level 1","Level 2", "Level 3","Exit",'Scoreboard']
+MenuList=['Instructions','Settings', "Level 1","Level 2", "Level 3","Scoreboard",'Exit']
 SettingList=['Screen Size','Font color','Background Color']
 messages = ["Screen size", "Background color"]
 
@@ -977,11 +977,7 @@ while playboogaloo:
         BackButton=MENU_FONT.render("BACK",1,(42,82,130))
         screen.blit(BackButton,(200,500))
     if SCORE and hi:
-        screen.fill(background)
-        TitleMenu("SCOREBOARD")
         scoreboard()
-        backthing=MENU_FONT.render("BACK",1,(42,82,130))
-        screen.blit(backthing,(200,500))
 
     if ((xm >20 and xm <80) and (ym >250 and ym <290))or INST :
         MAIN=False
@@ -1031,16 +1027,18 @@ while playboogaloo:
         screen.fill(background)
         playgameyuh3()
     if ((xm > 20 and xm < 80) and (ym> 490 and ym < 540)) and MAIN:
-        quit()
-    if ((xm > 50 and xm < 80) and (ym> 540 and ym < 590)) and MAIN:
         MAIN=False
         SCORE=True
+        hi = True
         # backthing=MENU_FONT.render("BACK",1,(42,82,130))
         # screen.blit(backthing,(200,500))
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys [pygame.K_ESCAPE] :
             SCORE=False
             MAIN=True
+            hi = False
+    if ((xm > 50 and xm < 80) and (ym> 540 and ym < 590)) and MAIN:
+        quit()
         
                 
     pygame.display.update()
