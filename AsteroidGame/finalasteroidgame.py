@@ -261,6 +261,7 @@ def timer():
 count = 0
 def playgameyuh1():
     global gameover, xm, ym
+    #defining variables
     FPS = 30
     framesPerSec = pygame.time.Clock()
     black = (0,0,0)
@@ -279,13 +280,14 @@ def playgameyuh1():
     # mixer.music.play()
 
     class Enemy(pygame.sprite.Sprite):
+        #this is where i draw the enemy which is a picture of dwayne johnson
         def __init__(self):
             super().__init__()
             self.image = pygame.image.load("AsteroidGame\dwaynefr.png") #changed the sprite to dwayne johnson
             self.surf = pygame.Surface((30,30))
             self.rect = self.surf.get_rect(center = (random.randint(40,460), (random.randint(-100,0)))) #i will change this later so it can modify to the screen size
 
-        def move(self, score, destroyed):
+        def move(self, score, destroyed): #this is if i shoot a bullet at it
             self.rect.move_ip(0,speed)
             if(self.rect.bottom > 700) or destroyed == True:
                 self.rect.center = (random.randint(30,460), (random.randint(-100,0)))
@@ -298,7 +300,7 @@ def playgameyuh1():
 
 
     class Player(pygame.sprite.Sprite):
-        def __init__(self):
+        def __init__(self): #this is where i make the space ship and its position
             super().__init__()
             self.image = pygame.image.load("AsteroidGame\spaceShip.png")
             self.surf = pygame.Surface((54,118))
@@ -307,7 +309,7 @@ def playgameyuh1():
         def draw(self, surface):
             surface.blit(self.image, (self.rect.centerx-45, self.rect.centery - 90))
 
-        def update(self):
+        def update(self): #this is where i do the arrow key stuff
             pressedKeys = pygame.key.get_pressed()
         
             if self.rect.left > 0:
@@ -321,14 +323,14 @@ def playgameyuh1():
 
 
     class Bullet(pygame.sprite.Sprite):
-        def __init__(self, player):
+        def __init__(self, player): # this is where i draw the image of the bullet
             super().__init__()
             self.image = pygame.image.load("AsteroidGame\\bullet.png")
             self.surf = pygame.Surface((10,10))
             self.rect = self.surf.get_rect(center = (player.rect.midtop))
             self.fired = False
 
-        def fire(self, player):
+        def fire(self, player): #this is firing the bullet from the space ship
             pressed_keys = pygame.key.get_pressed()
             if pressed_keys [pygame.K_SPACE] and self.fired == False:
                 self.rect = self.surf.get_rect(center = (player.rect.midtop))
@@ -337,7 +339,7 @@ def playgameyuh1():
             if self.fired == True:
                 window.blit(self.image, self.rect)
                 self.rect.move_ip(0,-5)
-
+                # this makes it so that its not functional after hitting the top
                 if (self.rect.top < 1):
                     self.rect.top = 600
                     self.fired = False
@@ -347,11 +349,11 @@ def playgameyuh1():
             self.fired = False
 
 
-    class Background():
+    class Background(): #just backgrund
         def __init__(self):
             BGM= pygame.image.load("AsteroidGame\spacebkgrnd.png")
             # pygame. transform. scale(image, DEFAULT_IMAGE_SIZE)
-            self.backgroundImage = pygame.transform.scale(BGM, (600, 700))
+            self.backgroundImage = pygame.transform.scale(BGM, (600, 700)) #the scaling
             self.rectBGimage = self.backgroundImage.get_rect()
 
             self.bgY1 = 0
@@ -946,15 +948,14 @@ def scoreboard():
         screen.fill(background)
         TitleMenu("MENU")
         MainMenu(MenuList)
-                
+# def changebackground():
+#     screen.fill(background)  
+
 playboogaloo = True
 f_color = True
 xm = 0
 ym = 0
 while playboogaloo:
-
-    
-    # print(GAME)
     global randdisplay
     for case in pygame.event.get():
         if case.type==pygame.QUIT:
@@ -1006,21 +1007,18 @@ while playboogaloo:
         screensizelist = [(700, 700), (800, 800), (900,900)]
         randscreen = random.choice(screensizelist)
         randdisplay=pygame.display.set_mode((randscreen))
-
     if ((xm >100 and xm <130) and (ym >300 and ym <330)) and SETT and f_color:
         f_color = False
         xm = 0
         ym = 0
         blackandwhite = {'white':[255,255,255], 'black':[0,0, 0]}
         new_list = list(blackandwhite.keys())
-
         randcol = random.choice(new_list)
         print(randcol)
         backgroundmenu = blackandwhite.get(randcol)
         screen.fill(backgroundmenu)
-
     if ((xm >200 and xm <540) and (ym >500 and ym <540)) and SETT:
-        screen.fill(background)
+        screen.fill(backgroundmenu)
         SETT=False
         MAIN=True
     if ((xm >20 and xm <80) and (ym >350 and ym <390)) and MAIN:
